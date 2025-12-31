@@ -17,7 +17,7 @@ async function index(prompt) {
         messages: [
           { role: "user", content: prompt }
         ],
-        max_tokens: 200
+        max_tokens: 500
       })
     });
 
