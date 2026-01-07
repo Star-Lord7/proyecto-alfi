@@ -3,7 +3,7 @@ CREATE TABLE `tarjetas` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
     `pregunta` VARCHAR(191) NOT NULL,
     `imagen` VARCHAR(191) NULL,
-    `dificultad` INTEGER NOT NULL,
+    `dificultad` ENUM('BASICO', 'INTERMEDIO', 'AVANZADO') NOT NULL,
     `estado` ENUM('GENERADA', 'PENDIENTE_REVISION', 'APROBADA', 'RECHAZADA', 'PUBLICADA') NOT NULL,
     `coleccionId` INTEGER NOT NULL,
     `created_at` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
@@ -38,6 +38,7 @@ CREATE TABLE `temas` (
     `updated_at` DATETIME(3) NOT NULL,
     `deleted_at` DATETIME(3) NULL,
 
+    UNIQUE INDEX `temas_nombre_key`(`nombre`),
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
@@ -116,3 +117,6 @@ ALTER TABLE `respuestas_usuario` ADD CONSTRAINT `respuestas_usuario_puntajeId_fk
 
 -- AddForeignKey
 ALTER TABLE `puntajes_usuario` ADD CONSTRAINT `puntajes_usuario_usuarioId_fkey` FOREIGN KEY (`usuarioId`) REFERENCES `usuarios`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE `puntajes_usuario` ADD CONSTRAINT `puntajes_usuario_coleccionId_fkey` FOREIGN KEY (`coleccionId`) REFERENCES `colecciones`(`id`) ON DELETE RESTRICT ON UPDATE CASCADE;
