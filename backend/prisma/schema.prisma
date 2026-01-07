@@ -22,16 +22,138 @@ enum EstadoTarjeta {
   PUBLICADA
 }
 
+enum NivelDificultad {
+  BASICO
+  INTERMEDIO
+  AVANZADO
+}
+
 model Tarjeta {
-  id       Int           @id @default(autoincrement())
-  titulo   String
-  pregunta String
-  opciones Json
-  estado   EstadoTarjeta @default(GENERADA)
+  id         Int             @id @default(autoincrement())
+  pregunta   String
+  imagen     String?
+  dificultad NivelDificultad
+  estado     EstadoTarjeta
+
+  coleccionId Int
+  coleccion   Coleccion @relation(fields: [coleccionId], references: [id])
+
+  opciones   OpcionRespuesta[]
+  respuestas RespuestaUsuario[]
 
   created_at DateTime  @default(now())
   updated_at DateTime  @updatedAt
   deleted_at DateTime?
 
   @@map("tarjetas")
+}
+
+model Coleccion {
+  id                Int     @id @default(autoincrement())
+  titulo            String
+  descripcion       String?
+  cantidad_tarjetas Int
+  estado            String
+
+  temaId Int
+  tema   Tema @relation(fields: [temaId], references: [id])
+
+  tarjetas Tarjeta[]
+  puntajes PuntajeUsuario[]
+
+  created_at DateTime  @default(now())
+  updated_at DateTime  @updatedAt
+  deleted_at DateTime?
+
+  @@map("colecciones")
+}
+
+model Tema {
+  id          Int     @id @default(autoincrement())
+  nombre      String  @unique
+  descripcion String?
+  estado      Boolean @default(true)
+
+  colecciones Coleccion[]
+
+  created_at DateTime  @default(now())
+  updated_at DateTime  @updatedAt
+  deleted_at DateTime?
+
+  @@map("temas")
+}
+
+model OpcionRespuesta {
+  id          Int     @id @default(autoincrement())
+  descripcion String
+  feedback    String?
+  es_correcta Boolean
+  puntos      Int
+
+  tarjetaId Int
+  tarjeta   Tarjeta @relation(fields: [tarjetaId], references: [id])
+
+  opcionesUsuario RespuestaUsuario[]
+
+  created_at DateTime  @default(now())
+  updated_at DateTime  @updatedAt
+  deleted_at DateTime?
+
+  @@map("opciones_respuesta")
+}
+
+model RespuestaUsuario {
+  id Int @id @default(autoincrement())
+
+  tarjetaId Int
+  opcionId  Int
+  puntajeId Int
+
+  tiempoRespuesta Int
+  esCorrecta      Boolean
+
+  tarjeta Tarjeta         @relation(fields: [tarjetaId], references: [id])
+  opcion  OpcionRespuesta @relation(fields: [opcionId], references: [id])
+  puntaje PuntajeUsuario  @relation(fields: [puntajeId], references: [id])
+
+  created_at DateTime @default(now())
+
+  @@map("respuestas_usuario")
+}
+
+model PuntajeUsuario {
+  id          Int @id @default(autoincrement())
+  usuarioId   Int
+  coleccionId Int
+
+  respuestas   RespuestaUsuario[]
+  puntajeFinal Int
+  fecha        DateTime           @default(now())
+
+  usuario   Usuario   @relation(fields: [usuarioId], references: [id])
+  coleccion Coleccion @relation(fields: [coleccionId], references: [id])
+
+  @@map("puntajes_usuario")
+}
+
+enum Rol {
+  ADMIN
+  USUARIO
+}
+
+model Usuario {
+  id       Int     @id @default(autoincrement())
+  nombre   String
+  email    String  @unique
+  password String
+  rol      Rol     @default(USUARIO) // Opcional, para admin o usuario normal
+  estado   Boolean @default(true) // Usuario activo/inactivo
+
+  puntajes PuntajeUsuario[]
+
+  created_at DateTime  @default(now())
+  updated_at DateTime  @updatedAt
+  deleted_at DateTime?
+
+  @@map("usuarios")
 }

@@ -1,7 +1,8 @@
 export const cardPromptTemplate = ({
   categoria,
   segmento,
-  nivel = "basico",
+  nivel = "BASICO",
+  coleccion = "General",
   //   pais = "general",
 }) => `
 Eres un experto en educación financiera y diseño de juegos educativos.
@@ -13,6 +14,7 @@ CONTEXTO
 - Categoría: ${categoria}
 - Segmento: ${segmento}
 - Nivel: ${nivel}
+- Colección: ${coleccion}
 
 INSTRUCCIONES DE FORMATO (OBLIGATORIAS)
 - Devuelve EXCLUSIVAMENTE JSON válido
@@ -23,7 +25,7 @@ INSTRUCCIONES DE FORMATO (OBLIGATORIAS)
 ESTRUCTURA OBLIGATORIA
 {
   "titulo": "Titulo corto",
-  "pregunta": "Texto de la pregunta",
+  "pregunta": "Texto de la pregunta en base a la categoría, segmento, nivel y colección",
   "opciones": [
     {
       "texto": "Opcion 1",

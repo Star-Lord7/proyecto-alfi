@@ -48,12 +48,24 @@ Si por alguna razón Prisma Client no se genera automáticamente, puedes generar
 npx prisma generate
 ```
 
+Ejecutar Seed para poblar la base de datos con datos iniciales:
+
+```
+npx prisma db seed
+```
+
 ## Ejecución
 
 Para iniciar el servidor en modo desarrollo:
 
 ```
 npm run dev
+```
+
+Endpoint de prueba:
+
+```
+http://localhost:3000/api/alfi/finanzas
 ```
 
 <!-- ## Estructura del proyecto

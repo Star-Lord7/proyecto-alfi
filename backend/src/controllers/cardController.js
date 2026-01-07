@@ -2,12 +2,14 @@ import * as cardModel from "../models/cardModel.js";
 
 const createPrompt = async (req, res) => {
   try {
-    const { categoria, segmento, nivel } = req.body;
+    const { categoria, segmento, nivel, coleccionId, dificultad } = req.body;
 
     const tarjeta = await cardModel.createPromptTemplate({
       categoria,
       segmento,
       nivel,
+      coleccionId,
+      dificultad: dificultad || "BASICO", // Valor por defecto si no se proporciona
       //   pais,
     });
 
