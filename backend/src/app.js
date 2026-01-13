@@ -2,7 +2,7 @@ import express from "express";
 import cors from "cors";
 import finanzasRoutes from "./routes/finanzasRoutes.js";
 import cardRoutes from "./routes/cardRoutes.js";
-import temasRouter from "./routes/temasRoutes.js";
+import temasRouter from "./routes/temaRoutes.js";
 
 const app = express();
 

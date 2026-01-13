@@ -13,7 +13,7 @@ const getAllThemes = async () => {
     });
     return themes;
   } catch (error) {
-    throw new Error("Error en quizModel: " + error.message);
+    throw new Error("Error en temaModel: " + error.message);
   }
 };
 
@@ -26,7 +26,7 @@ const getThemeByName = async (name) => {
     });
     return theme;
   } catch (error) {
-    throw new Error("Error en quizModel: " + error.message);
+    throw new Error("Error en temaModel: " + error.message);
   }
 };
 
@@ -37,37 +37,40 @@ const createTheme = async (themeData) => {
     });
     return newTheme;
   } catch (error) {
-    throw new Error("Error en quizModel: " + error.message);
+    throw new Error("Error en temaModel: " + error.message);
   }
 };
 
-const updateTheme = async (name, updateData) => {
+const updateTheme = async (id, updateData) => {
   try {
+    const idParse = parseInt(id, 10);
     const updatedTheme = await prisma.tema.update({
       where: {
-        nombre: name,
+        id: idParse,
       },
       data: updateData,
     });
     return updatedTheme;
   } catch (error) {
-    throw new Error("Error en quizModel: " + error.message);
+    throw new Error("Error en temaModel: " + error.message);
   }
 };
 
-const deleteTheme = async (name) => {
+const deleteTheme = async (id) => {
   try {
+    const idParse = parseInt(id, 10);
     const deletedTheme = await prisma.tema.update({
       where: {
-        nombre: name,
+        id: idParse,
       },
       data: {
         estado: false,
+        deleted_at: new Date(),
       },
     });
     return deletedTheme;
   } catch (error) {
-    throw new Error("Error en quizModel: " + error.message);
+    throw new Error("Error en temaModel: " + error.message);
   }
 };
 
