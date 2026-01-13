@@ -1,22 +1,25 @@
 import prisma from "../config/prismaConfig.js";
 import index from "../services/apiService.js";
+// import { promptTexto } from "../services/geminiAI.js";
 import { cardPromptTemplate } from "../utils/promptTemplate.js";
 
 const createPromptTemplate = async (params) => {
   try {
     const { coleccionId, dificultad = "BASICO" } = params;
 
-    // 1️⃣ Generar prompt
+    // Generar prompt
     const prompt = cardPromptTemplate(params);
 
-    // 2️⃣ Llamar a tu API de IA (index)
+    // API OPENROUTER - TODOS
     const response = await index(prompt);
+    // API GEMINI - SAMUEL
+    // const response = await promptTexto(prompt);
 
-    // 3️⃣ Limpiar el texto y parsear JSON
+    // Limpiar el texto y parsear JSON
     const raw = response.trim().replace(/```json|```/g, "");
     const parsed = JSON.parse(raw);
 
-    // 4️⃣ Crear tarjeta con opciones
+    // Crear tarjeta con opciones
     const tarjeta = await prisma.tarjeta.create({
       data: {
         pregunta: parsed.pregunta,

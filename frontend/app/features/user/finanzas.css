@@ -1,0 +1,148 @@
+/* ===== Layout ===== */
+.finanzas-container {
+  min-height: 100vh;
+  background: linear-gradient(180deg, #0b1437, #050a1e);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ===== Card ===== */
+.card-wrapper {
+  perspective: 1200px;
+}
+
+.card {
+  width: 700px;
+  max-width: 94vw;
+  background: white;
+  border-radius: 20px;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.8s ease;
+}
+
+.card.flipped {
+  transform: rotateY(180deg);
+}
+
+.card-face {
+  padding: 40px;
+  backface-visibility: hidden;
+}
+
+.card-back {
+  position: absolute;
+  inset: 0;
+  transform: rotateY(180deg);
+}
+
+/* ===== Progress ===== */
+.progress {
+  position: relative;
+  height: 6px;
+  background: #e5e7eb;
+  border-radius: 4px;
+  margin-bottom: 32px;
+}
+
+.progress-bar {
+  height: 100%;
+  background: #f4c430;
+  border-radius: 4px;
+}
+
+.progress-text {
+  position: absolute;
+  right: 0;
+  top: -22px;
+  font-size: 13px;
+  color: #6b7280;
+}
+
+/* ===== Content ===== */
+.categoria {
+  font-size: 14px;
+  color: #6b7280;
+  margin-bottom: 6px;
+}
+
+h2 {
+  font-size: 20px;
+  margin-bottom: 26px;
+  color: #0b1437;
+}
+
+/* ===== Opciones ===== */
+.opcion {
+  width: 100%;
+  padding: 14px 16px;
+  margin-top: 12px;
+  border-radius: 12px;
+  border: 1px solid #d1d5db;
+  background: white;
+  cursor: pointer;
+  text-align: left;
+  font-size: 15px;
+  color: #0b1437;
+  transition: all 0.2s ease;
+}
+
+.opcion:hover {
+  border-color: #0b1437;
+}
+
+.opcion.selected {
+  background: #f4f6ff;
+  border-color: #0b1437;
+}
+
+/* ===== Actions ===== */
+.acciones {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 36px;
+}
+
+.primary {
+  min-width: 180px;
+  background: #0b1437;
+  color: white;
+  padding: 12px 32px;
+  border-radius: 14px;
+  border: none;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.primary:disabled {
+  background: #9ca3af;
+  color: white;
+  cursor: not-allowed;
+}
+
+.secondary {
+  min-width: 140px;
+  background: white;
+  border: 1px solid #0b1437;
+  color: #0b1437;
+  padding: 12px 32px;
+  border-radius: 14px;
+  cursor: pointer;
+  font-size: 15px;
+}
+
+/* ===== Back ===== */
+.resultado {
+  margin-top: 18px;
+}
+
+.correcta {
+  color: #15803d;
+}
+
+.incorrecta {
+  color: #b00020;
+}
