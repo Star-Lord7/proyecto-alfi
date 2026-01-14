@@ -1,8 +1,8 @@
-import * as temaModel from "../models/temaModel.js";
+import * as themeModel from "../models/themeModel.js";
 
 const getThemes = async (req, res) => {
   try {
-    const themes = await temaModel.getAllThemes();
+    const themes = await themeModel.getAllThemes();
     res.json(themes);
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -12,7 +12,7 @@ const getThemes = async (req, res) => {
 const addTheme = async (req, res) => {
   try {
     const themeData = req.body;
-    const newTheme = await temaModel.createTheme(themeData);
+    const newTheme = await themeModel.createTheme(themeData);
     res.status(201).json(newTheme);
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -23,7 +23,7 @@ const editTheme = async (req, res) => {
   try {
     const { id } = req.params;
     const updateData = req.body;
-    const updatedTheme = await temaModel.updateTheme(id, updateData);
+    const updatedTheme = await themeModel.updateTheme(id, updateData);
     res.json(updatedTheme);
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -33,7 +33,7 @@ const editTheme = async (req, res) => {
 const removeTheme = async (req, res) => {
   try {
     const { id } = req.params;
-    await temaModel.deleteTheme(id);
+    await themeModel.deleteTheme(id);
     res.status(200).json({
       message: "Tema eliminado exitosamente",
     });
