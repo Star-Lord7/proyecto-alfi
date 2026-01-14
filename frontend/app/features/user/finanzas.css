@@ -37,6 +37,17 @@
   transform: rotateY(180deg);
 }
 
+/* Oculta el contenido tras la tarjeta al voltear */
+.card:not(.flipped) .card-back {
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.card.flipped .card-front {
+  visibility: hidden;
+  pointer-events: none;
+}
+
 /* ===== Progress ===== */
 .progress {
   position: relative;
