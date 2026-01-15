@@ -5,6 +5,7 @@ const getAllThemes = async () => {
   try {
     const themes = await prisma.tema.findMany({
       select: {
+        id: true,
         nombre: true,
         descripcion: true,
       },
@@ -23,6 +24,7 @@ const getThemeByName = async (name) => {
   try {
     const theme = await prisma.tema.findUnique({
       where: {
+        id: true,
         nombre: name,
       },
     });

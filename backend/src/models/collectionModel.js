@@ -4,16 +4,16 @@ import prisma from "../config/prismaConfig.js";
 const getAllCollections = async () => {
   try {
     const collections = await prisma.coleccion.findMany({
-      select: {
-        titulo: true,
-        descripcion: true,
-        cantidad_tarjetas: true,
-        tema: {
-          select: {
-            nombre: true,
-          },
-        },
-      },
+      // select: {
+      //   titulo: true,
+      //   descripcion: true,
+      //   cantidad_tarjetas: true,
+      //   tema: {
+      //     select: {
+      //       nombre: true,
+      //     },
+      //   },
+      // },
       where: {
         estado: "ACTIVA",
       },
