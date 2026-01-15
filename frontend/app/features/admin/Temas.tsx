@@ -174,15 +174,17 @@ export default function Temas() {
       {!loading && !error && temas.length > 0 && (
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {temas.map((tema, index) => (
-            <div key={index}
-              className="bg-white rounded-xl shadow-md p-6 hover:shadow-lg transition">
+            <div
+              key={index}
+              className="bg-white rounded-xl shadow-md p-6 hover:shadow-lg transition"
+            >
               <h2 className="text-xl font-semibold text-emerald-700 mb-2">
                 {tema.nombre}
               </h2>
               <p className="text-gray-600">{tema.descripcion}</p>
 
-              {/* BOTON DE EDITAR */}
               <div className="flex justify-end gap-3 mt-6">
+                {/* EDITAR */}
                 <button
                   onClick={() => {
                     setTemaSelec(tema);
@@ -190,21 +192,29 @@ export default function Temas() {
                     setEditDescripcion(tema.descripcion);
                     setShowEditModal(true);
                   }}
-                  className="mt-4 px-4 py-2 bg-emerald-600 text-white rounded hover:bg-emerald-700 transition">
+                  className="px-4 py-2 text-sm bg-emerald-600 text-white rounded-lg hover:bg-emerald-700 transition"
+                >
                   Editar
                 </button>
 
-                {/* BOTON PARA ELIMINAR */}
-                <div className="flex gap-2 mt-4">
-                  <button
-                    className="px-3 py-1 text-sm bg-red-600 text-white rounded hover:bg-red-700"
-                    onClick={() => {
-                      setTemaSelec(tema);
-                      setShowDeleteModal(true);
-                    }}>
-                    Eliminar
-                  </button>
-                </div>
+                {/* VER QUIZZES */}
+                <Link
+                  to={`/admin/temas/${tema.id}/colecciones`}
+                  className="px-4 py-2 text-sm bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition flex items-center"
+                >
+                  Ver quizzes
+                </Link>
+
+                {/* ELIMINAR */}
+                <button
+                  onClick={() => {
+                    setTemaSelec(tema);
+                    setShowDeleteModal(true);
+                  }}
+                  className="px-4 py-2 text-sm bg-red-600 text-white rounded-lg hover:bg-red-700 transition"
+                >
+                  Eliminar
+                </button>
               </div>
             </div>
           ))}
@@ -268,19 +278,23 @@ export default function Temas() {
 
             <p className="text-gray-700 mb-6">
               ¿Estás seguro de que desea eliminar el tema
-              <strong> "{temaSelec.nombre}"</strong>? <br /><br />
+              <strong> "{temaSelec.nombre}"</strong>? <br />
+              <br />
               Esta acción no se puede deshacer.
             </p>
 
             <div className="flex justify-end gap-3">
-              <button className="px-4 py-2 rounded bg-gray-200 hover:bg-gray-300"
-                onClick={() => setShowDeleteModal(false)}>
+              <button
+                className="px-4 py-2 rounded bg-gray-200 hover:bg-gray-300"
+                onClick={() => setShowDeleteModal(false)}
+              >
                 Cancelar
               </button>
 
               <button
                 className="px-4 py-2 rounded bg-red-600 text-white hover:bg-red-700"
-                onClick={handleDeleteTema}>
+                onClick={handleDeleteTema}
+              >
                 Eliminar
               </button>
             </div>
