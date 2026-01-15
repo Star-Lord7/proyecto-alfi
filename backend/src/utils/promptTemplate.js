@@ -1,9 +1,24 @@
-export const cardPromptTemplate = ({
-  categoria,
+import { getCollectionById } from "../models/collectionModel.js";
+
+// Función auxiliar para obtener el nombre de la colección por su ID
+const collectionById = async (coleccionId) => {
+  try {
+    const idParse = parseInt(coleccionId, 10);
+    const collection = await getCollectionById(idParse);
+    // Retornamos el nombre de la colección o "Desconocida" si no se encuentra
+    return collection ? collection.nombre : "Desconocida";
+  } catch (error) {
+    throw new Error("Error obteniendo colección: " + error.message);
+  }
+};
+
+// Plantilla de prompt para generar tarjetas
+// Extraemos el nombre de la colección usando su ID
+// y tambien usamos los otros parámetros para personalizar el prompt
+export const cardPromptTemplate = async ({
   segmento,
-  nivel = "BASICO",
-  coleccion = "General",
-  //   pais = "general",
+  coleccionId,
+  dificultad,
 }) => `
 Eres un experto en educación financiera y diseño de juegos educativos.
 
@@ -11,10 +26,9 @@ OBJETIVO
 Crear UNA tarjeta educativa gamificada de finanzas.
 
 CONTEXTO
-- Categoría: ${categoria}
 - Segmento: ${segmento}
-- Nivel: ${nivel}
-- Colección: ${coleccion}
+- Colección: ${await collectionById(coleccionId)}
+- Dificultad: ${dificultad}
 
 INSTRUCCIONES DE FORMATO (OBLIGATORIAS)
 - Devuelve EXCLUSIVAMENTE JSON válido

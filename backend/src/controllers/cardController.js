@@ -1,13 +1,27 @@
 import * as cardModel from "../models/cardModel.js";
 
-const createPrompt = async (req, res) => {
+// Método para obtener todas las tarjetas de una colección específica
+const getAllCardsByCollectionId = async (req, res) => {
   try {
-    const { categoria, segmento, nivel, coleccionId, dificultad } = req.body;
+    const { coleccionId } = req.params;
+    const cards = await cardModel.getCardsByCollectionId(coleccionId);
+    res.json(cards);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
 
-    const tarjeta = await cardModel.createPromptTemplate({
-      categoria,
+// Método para agregar una nueva tarjeta
+const addCard = async (req, res) => {
+  try {
+    // Extraemos los datos necesarios del cuerpo de la solicitud
+    const { segmento, coleccionId, dificultad } = req.body;
+
+    // Se los pasamos al modelo para crear la tarjeta
+    const tarjeta = await cardModel.createCard({
+      // categoria,
+      // nivel,
       segmento,
-      nivel,
       coleccionId,
       dificultad: dificultad || "BASICO", // Valor por defecto si no se proporciona
       //   pais,
@@ -19,4 +33,32 @@ const createPrompt = async (req, res) => {
   }
 };
 
-export { createPrompt };
+// Método para editar una tarjeta existente
+const editCard = async (req, res) => {
+  try {
+    // Extraemos el ID de la tarjeta de los parámetros de la ruta
+    const { id } = req.params;
+    // Extraemos los datos de actualización del cuerpo de la solicitud
+    const updateData = req.body;
+    // Le pasamos los datos al modelo para actualizar la tarjeta
+    const updatedCard = await cardModel.updateCard(id, updateData);
+    res.json(updatedCard);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+// Método para eliminar una tarjeta
+const removeCard = async (req, res) => {
+  try {
+    const { id } = req.params;
+    await cardModel.deleteCard(id);
+    res.status(200).json({
+      message: "Tarjeta eliminada exitosamente",
+    });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+export { getAllCardsByCollectionId, addCard, editCard, removeCard };
