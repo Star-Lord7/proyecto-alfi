@@ -1,5 +1,6 @@
 import * as themeModel from "../models/themeModel.js";
 
+// Método para obtener todos los temas
 const getThemes = async (req, res) => {
   try {
     const themes = await themeModel.getAllThemes();
@@ -9,6 +10,7 @@ const getThemes = async (req, res) => {
   }
 };
 
+// Método para agregar un nuevo tema
 const addTheme = async (req, res) => {
   try {
     const themeData = req.body;
@@ -19,6 +21,7 @@ const addTheme = async (req, res) => {
   }
 };
 
+// Método para editar un tema existente
 const editTheme = async (req, res) => {
   try {
     const { id } = req.params;
@@ -30,6 +33,7 @@ const editTheme = async (req, res) => {
   }
 };
 
+// Método para eliminar un tema
 const removeTheme = async (req, res) => {
   try {
     const { id } = req.params;

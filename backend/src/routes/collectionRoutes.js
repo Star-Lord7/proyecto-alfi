@@ -5,7 +5,8 @@ const router = express.Router();
 
 router.use(express.json());
 
-router.get("/", collectionController.getCollections);
+router.get("/", collectionController.getAllCollections);
+router.get("/:id", collectionController.getCollectionById);
 router.post("/", collectionController.addCollection);
 router.put("/:id", collectionController.editCollection);
 router.delete("/:id", collectionController.removeCollection);

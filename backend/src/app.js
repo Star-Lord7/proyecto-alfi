@@ -7,13 +7,14 @@ import collectionRouter from "./routes/collectionRoutes.js";
 
 const app = express();
 
+// app.use(cors({origin: 'http://127.0.0.1:5500'}));
 app.use(cors({ origin: "*" }));
 app.use(express.json());
 
 app.use(express.urlencoded({ extended: true }));
 
 app.use("/api/alfi", finanzasRoutes);
-app.use("/api/alfi", cardRoutes);
+app.use("/api-alfi/tarjetas", cardRoutes);
 app.use("/api-alfi/temas", themeRouter);
 app.use("/api-alfi/colecciones", collectionRouter);
 

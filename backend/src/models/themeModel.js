@@ -1,9 +1,11 @@
 import prisma from "../config/prismaConfig.js";
 
+// Obtener todos los temas activos
 const getAllThemes = async () => {
   try {
     const themes = await prisma.tema.findMany({
       select: {
+        id: true,
         nombre: true,
         descripcion: true,
       },
@@ -17,10 +19,12 @@ const getAllThemes = async () => {
   }
 };
 
+// Obtener un tema por su nombre
 const getThemeByName = async (name) => {
   try {
     const theme = await prisma.tema.findUnique({
       where: {
+        id: true,
         nombre: name,
       },
     });
@@ -30,6 +34,7 @@ const getThemeByName = async (name) => {
   }
 };
 
+// Crear un nuevo tema
 const createTheme = async (themeData) => {
   try {
     const newTheme = await prisma.tema.create({
@@ -41,6 +46,7 @@ const createTheme = async (themeData) => {
   }
 };
 
+// Actualizar un tema existente
 const updateTheme = async (id, updateData) => {
   try {
     const idParse = parseInt(id, 10);
@@ -56,6 +62,7 @@ const updateTheme = async (id, updateData) => {
   }
 };
 
+// Eliminar un tema (soft delete)
 const deleteTheme = async (id) => {
   try {
     const idParse = parseInt(id, 10);

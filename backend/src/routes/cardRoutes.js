@@ -5,5 +5,9 @@ const router = express.Router();
 
 router.use(express.json());
 
-router.post("/card", cardController.createPrompt);
+router.get("/:coleccionId", cardController.getAllCardsByCollectionId);
+router.post("/", cardController.addCard);
+router.put("/:id", cardController.editCard);
+router.delete("/:id", cardController.removeCard);
+
 export default router;

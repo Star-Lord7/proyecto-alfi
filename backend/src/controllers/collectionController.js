@@ -1,6 +1,7 @@
 import * as colectionModel from "../models/collectionModel.js";
 
-const getCollections = async (req, res) => {
+// Método para obtener todas las colecciones
+const getAllCollections = async (req, res) => {
   try {
     const collections = await colectionModel.getAllCollections();
     res.json(collections);
@@ -9,6 +10,18 @@ const getCollections = async (req, res) => {
   }
 };
 
+// Método para obtener una colección por ID
+const getCollectionById = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const collection = await colectionModel.getCollectionById(id);
+    res.json(collection);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+// Método para agregar una nueva colección
 const addCollection = async (req, res) => {
   try {
     const collectionData = req.body;
@@ -19,6 +32,7 @@ const addCollection = async (req, res) => {
   }
 };
 
+// Método para editar una colección existente
 const editCollection = async (req, res) => {
   try {
     const { id } = req.params;
@@ -33,6 +47,7 @@ const editCollection = async (req, res) => {
   }
 };
 
+// Método para eliminar una colección
 const removeCollection = async (req, res) => {
   try {
     const { id } = req.params;
@@ -45,4 +60,10 @@ const removeCollection = async (req, res) => {
   }
 };
 
-export { getCollections, addCollection, editCollection, removeCollection };
+export {
+  getAllCollections,
+  getCollectionById,
+  addCollection,
+  editCollection,
+  removeCollection,
+};
