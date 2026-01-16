@@ -6,7 +6,7 @@ const router = express.Router();
 router.use(express.json());
 
 //ADMIN
-router.get("/revisar", cardController.getAllCardsForReview);
+router.post("/revisar", cardController.getAllCardsForReview);
 router.post("/", cardController.addCard);
 router.post("/estado", cardController.changeCardState);
 router.put("/:id", cardController.editCard);
