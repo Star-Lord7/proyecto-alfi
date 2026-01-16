@@ -10,7 +10,7 @@ const getCardsByCollectionId = async (coleccionId, limit = 3) => {
     const cards = await prisma.tarjeta.findMany({
       where: {
         coleccionId: coleccionIdParse,
-        estado: "PENDIENTE_REVISION",
+        estado: "APROBADA",
       },
       take: limit, // Limitar el número de tarjetas devueltas
       include: {
@@ -19,6 +19,22 @@ const getCardsByCollectionId = async (coleccionId, limit = 3) => {
     });
     // Mezclar las tarjetas antes de devolverlas
     return cards.sort(() => Math.random() - 0.5);
+  } catch (error) {
+    throw new Error("Error en cardModel: " + error.message);
+  }
+};
+
+const getCardsForReview = async (estado) => {
+  try {
+    const cards = await prisma.tarjeta.findMany({
+      where: {
+        estado: estado,
+      },
+      include: {
+        opciones: true,
+      },
+    });
+    return cards;
   } catch (error) {
     throw new Error("Error en cardModel: " + error.message);
   }
@@ -107,4 +123,10 @@ const deleteCard = async (id) => {
   }
 };
 
-export { getCardsByCollectionId, createCard, updateCard, deleteCard };
+export {
+  getCardsByCollectionId,
+  getCardsForReview,
+  createCard,
+  updateCard,
+  deleteCard,
+};
