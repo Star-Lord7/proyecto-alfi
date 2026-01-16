@@ -11,6 +11,16 @@ const getAllCardsByCollectionId = async (req, res) => {
   }
 };
 
+const getAllCardsForReview = async (req, res) => {
+  try {
+    const { estado } = req.body;
+    const cards = await cardModel.getCardsForReview(estado);
+    res.json(cards);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
 // Método para agregar una nueva tarjeta
 const addCard = async (req, res) => {
   try {
@@ -28,6 +38,16 @@ const addCard = async (req, res) => {
     });
 
     res.status(201).json(tarjeta);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+};
+
+const changeCardState = async (req, res) => {
+  try {
+    const { id, nuevoEstado } = req.body;
+    const updatedCard = await cardModel.updateCard(id, { estado: nuevoEstado });
+    res.json(updatedCard);
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
@@ -61,4 +81,11 @@ const removeCard = async (req, res) => {
   }
 };
 
-export { getAllCardsByCollectionId, addCard, editCard, removeCard };
+export {
+  getAllCardsByCollectionId,
+  getAllCardsForReview,
+  addCard,
+  changeCardState,
+  editCard,
+  removeCard,
+};
