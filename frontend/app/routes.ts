@@ -7,6 +7,7 @@ export default [
   route("admin/temas", "routes/admin/temas.tsx"),
   route("admin/temas/crear", "routes/admin/crearTema.tsx"),
   route("admin/quizzes", "routes/admin/quizzes.tsx"),
+  route("admin/colecciones", "routes/admin/colecciones.tsx"),
   // USER
   route("user", "routes/user/index.tsx"),
   route("user/finanzas", "routes/user/finanzas.tsx"),
