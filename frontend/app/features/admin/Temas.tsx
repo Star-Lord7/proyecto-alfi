@@ -66,7 +66,7 @@ export default function Temas() {
             nombre: editNombre,
             descripcion: editDescripcion,
           }),
-        }
+        },
       );
       if (res.ok) {
         const updatedTema = await res.json();
@@ -77,7 +77,7 @@ export default function Temas() {
 
         //recargar la lista de temas
         const refreshedRes = await fetch(
-          "http://localhost:3000/api-alfi/temas"
+          "http://localhost:3000/api-alfi/temas",
         );
         const refreshedData = await refreshedRes.json();
         setTemas(refreshedData);
@@ -134,12 +134,19 @@ export default function Temas() {
       )}
 
       {/* Boton para crear un nuevo tema */}
-      <div className="flex justify-center md:justify-end mb-10">
+      <div className="flex justify-center md:justify-end gap-4 mb-10 mt-6">
         <Link
           to="/admin/temas/crear"
           className="bg-emerald-700 text-white px-6 py-2 rounded-lg font-semibold shadow hover:bg-emerald-800 transition"
         >
           + Crear Tema
+        </Link>
+
+        <Link
+          to="/admin/colecciones"
+          className="bg-emerald-700 text-white px-6 py-2 rounded-lg font-semibold shadow hover:bg-emerald-800 transition"
+        >
+          Ver Colecciones
         </Link>
       </div>
 
@@ -198,12 +205,12 @@ export default function Temas() {
                 </button>
 
                 {/* VER QUIZZES */}
-                <Link
+                {/* <Link
                   to={`/admin/temas/${tema.id}/colecciones`}
                   className="px-4 py-2 text-sm bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition flex items-center"
                 >
                   Ver quizzes
-                </Link>
+                </Link> */}
 
                 {/* ELIMINAR */}
                 <button
