@@ -39,14 +39,22 @@ const finanzas = async () => {
     `);
 
     //LIMPIEZA DEL JSON RECIBIDO 
-    const cleanResponse = response
+    const raw = response
       .trim()
       .replace(/```json|```/g, '');
 
-    return JSON.parse(cleanResponse);
+    let parsed;
+    try {
+      parsed = JSON.parse(raw);
+    } catch (e) {
+      console.error("JSON INVALIDO >>>", raw);
+      throw new Error("La IA devolvió JSON inválido");
+    }
 
+    return parsed;
+    
   } catch (error) {
-    console.error("Respuesta cruda IA:", error);
+    console.error("Respuesta cruda IA:", error.message);
     throw new Error("Error en finanzasModel: " + error.message);
   }
 };
