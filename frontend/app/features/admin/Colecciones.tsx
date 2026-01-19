@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router";
+import { useNavigate } from "react-router";
 
 interface Tema {
   id: number;
@@ -16,6 +17,7 @@ interface Coleccion {
 }
 
 export default function Colecciones() {
+  const navigate = useNavigate();
   const [temas, setTemas] = useState<Tema[]>([]);
   const [colecciones, setColecciones] = useState<Coleccion[]>([]);
   const [loading, setLoading] = useState(true);
@@ -233,7 +235,8 @@ export default function Colecciones() {
     <div className="min-h-screen bg-gray-200 px-10 py-12">
       <Link
         to="/admin/temas"
-        className="bg-white px-5 py-2 rounded-lg shadow text-emerald-800 font-semibold hover:shadow-md transition">
+        className="bg-white px-5 py-2 rounded-lg shadow text-emerald-800 font-semibold hover:shadow-md transition"
+      >
         Volver
       </Link>
 
@@ -255,7 +258,8 @@ export default function Colecciones() {
           <select
             value={temaFiltro}
             onChange={(e) => setTemaFiltro(e.target.value)}
-            className="px-4 py-2 rounded-lg border border-gray-300 bg-emerald-100 text-gray-700 shadow-sm focus:outline-none focus:ring-2 focus:ring-emerald-500">
+            className="px-4 py-2 rounded-lg border border-gray-300 bg-emerald-100 text-gray-700 shadow-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+          >
             <option value="todos">Todos los temas</option>
             {temas.map((tema) => (
               <option key={tema.id} value={tema.id}>
@@ -266,16 +270,27 @@ export default function Colecciones() {
         </div>
 
         {/* BOTÓN CREAR */}
-        <button
-          onClick={() => {
-            setTitulo("");
-            setDescripcion("");
-            setTemaId("");
-            setShowCreateModal(true);
-          }}
-          className="bg-emerald-700 text-white px-6 py-2 rounded-lg font-semibold shadow hover:bg-emerald-800 transition self-start md:self-auto">
-          + Crear Colección
-        </button>
+        <div className="flex justify-center md:justify-end gap-4 mb-10 mt-6">
+          <button
+            onClick={() => {
+              setTitulo("");
+              setDescripcion("");
+              setTemaId("");
+              setShowCreateModal(true);
+            }}
+            className="bg-emerald-700 text-white px-6 py-2 rounded-lg font-semibold shadow hover:bg-emerald-800 transition self-start md:self-auto"
+          >
+            + Crear Colección
+          </button>
+
+          {/* Boton para ver las preguntas */}
+          <Link
+            to="/admin/quizzes"
+            className="bg-emerald-700 text-white px-6 py-2 rounded-lg font-semibold shadow hover:bg-emerald-800 transition"
+          >
+            Revisar Preguntas
+          </Link>
+        </div>
       </div>
 
       {/* LOADING */}
@@ -322,7 +337,8 @@ export default function Colecciones() {
           {coleccionesFiltradas.map((coleccion) => (
             <div
               key={coleccion.id}
-              className="bg-white rounded-xl shadow-md p-6 hover:shadow-lg transition">
+              className="bg-white rounded-xl shadow-md p-6 hover:shadow-lg transition"
+            >
               <h2 className="text-xl font-semibold text-emerald-700 mb-2">
                 {coleccion.titulo}
               </h2>
@@ -346,10 +362,16 @@ export default function Colecciones() {
 
               {/* BOTONES */}
               <div className="flex justify-end gap-3 mt-6">
-                {/* despues sera un Link para poder redirigir a otra pagina que muestre las tarjetas/preguntas de la coleccion */}
-                <button className="bg-emerald-700 text-white px-4 py-2 rounded-lg text-sm font-semibold hover:bg-emerald-800 transition">
+              {/* boton para ver las preguntas aprobadas de una coleccion en especifico */}
+                <button
+                  className="bg-emerald-700 text-white px-4 py-2 rounded-lg text-sm font-semibold hover:bg-emerald-800 transition"
+                  onClick={() =>
+                    navigate(`/admin/colecciones/${coleccion.id}/quiz-aprobado`)
+                  }
+                >
                   Ver tarjetas
                 </button>
+
                 {/* EDITAR */}
                 <button
                   onClick={() => {
@@ -361,7 +383,8 @@ export default function Colecciones() {
                     setEstado(coleccion.estado);
                     setShowEditModal(true);
                   }}
-                  className="px-4 py-2 text-sm bg-emerald-700 text-white rounded-lg hover:bg-emerald-700 transition">
+                  className="px-4 py-2 text-sm bg-emerald-700 text-white rounded-lg hover:bg-emerald-700 transition"
+                >
                   Editar
                 </button>
 
@@ -371,7 +394,8 @@ export default function Colecciones() {
                     setColeccionSelec(coleccion);
                     setShowDeleteModal(true);
                   }}
-                  className="px-4 py-2 text-sm bg-red-600 text-white rounded-lg hover:bg-red-700 transition">
+                  className="px-4 py-2 text-sm bg-red-600 text-white rounded-lg hover:bg-red-700 transition"
+                >
                   Eliminar
                 </button>
               </div>
@@ -401,7 +425,8 @@ export default function Colecciones() {
                   value={titulo}
                   onChange={(e) => setTitulo(e.target.value)}
                   placeholder=""
-                  className="w-full border rounded-lg px-4 py-2 focus:ring-2 focus:ring-emerald-500 focus:outline-none"/>
+                  className="w-full border rounded-lg px-4 py-2 focus:ring-2 focus:ring-emerald-500 focus:outline-none"
+                />
               </div>
 
               {/* DESCRIPCION */}
@@ -414,7 +439,8 @@ export default function Colecciones() {
                   onChange={(e) => setDescripcion(e.target.value)}
                   placeholder="Describe brevemente el contenido de esta colección"
                   rows={3}
-                  className="w-full border rounded-lg px-4 py-2 resize-none focus:ring-2 focus:ring-emerald-500 focus:outline-none"/>
+                  className="w-full border rounded-lg px-4 py-2 resize-none focus:ring-2 focus:ring-emerald-500 focus:outline-none"
+                />
               </div>
 
               {/* TEMA */}
@@ -425,7 +451,8 @@ export default function Colecciones() {
                 <select
                   value={temaId}
                   onChange={(e) => setTemaId(Number(e.target.value))}
-                  className="w-full border rounded-lg px-4 py-2 bg-white focus:ring-2 focus:ring-emerald-500 focus:outline-none">
+                  className="w-full border rounded-lg px-4 py-2 bg-white focus:ring-2 focus:ring-emerald-500 focus:outline-none"
+                >
                   <option value="">Selecciona un tema</option>
                   {temas.map((tema) => (
                     <option key={tema.id} value={tema.id}>
@@ -460,7 +487,8 @@ export default function Colecciones() {
                     onChange={(e) =>
                       setEstado(e.target.value as "ACTIVA" | "INACTIVA")
                     }
-                    className="w-full border rounded-lg px-4 py-2 bg-white focus:ring-2 focus:ring-emerald-500 focus:outline-none">
+                    className="w-full border rounded-lg px-4 py-2 bg-white focus:ring-2 focus:ring-emerald-500 focus:outline-none"
+                  >
                     <option value="ACTIVA">Activa</option>
                     <option value="INACTIVA">Inactiva</option>
                   </select>
@@ -475,13 +503,15 @@ export default function Colecciones() {
                   setShowCreateModal(false);
                   setShowEditModal(false);
                 }}
-                className="px-5 py-2 rounded-lg bg-gray-200 text-gray-700 hover:bg-gray-300 transition">
+                className="px-5 py-2 rounded-lg bg-gray-200 text-gray-700 hover:bg-gray-300 transition"
+              >
                 Cancelar
               </button>
 
               <button
                 onClick={showEditModal ? handleUpdate : handleCreate}
-                className="px-5 py-2 rounded-lg bg-emerald-700 text-white font-semibold hover:bg-emerald-800 transition">
+                className="px-5 py-2 rounded-lg bg-emerald-700 text-white font-semibold hover:bg-emerald-800 transition"
+              >
                 {showEditModal ? "Guardar cambios" : "Crear colección"}
               </button>
             </div>
@@ -497,17 +527,20 @@ export default function Colecciones() {
               Eliminar colección
             </h2>
             <p className="mb-6">
-              ¿Esta seguro que desea eliminar la colección <strong>{coleccionSelec.titulo}</strong>?
+              ¿Esta seguro que desea eliminar la colección{" "}
+              <strong>{coleccionSelec.titulo}</strong>?
             </p>
             <div className="flex justify-end gap-3">
               <button
                 onClick={() => setShowDeleteModal(false)}
-                className="px-4 py-2 bg-gray-200 rounded">
+                className="px-4 py-2 bg-gray-200 rounded"
+              >
                 Cancelar
               </button>
               <button
                 onClick={handleDelete}
-                className="px-4 py-2 bg-red-600 text-white rounded">
+                className="px-4 py-2 bg-red-600 text-white rounded"
+              >
                 Eliminar
               </button>
             </div>

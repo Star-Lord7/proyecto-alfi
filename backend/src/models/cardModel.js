@@ -54,9 +54,9 @@ const createCard = async (params) => {
     });
 
     // API OPENROUTER - TODOS
-    const response = await index(prompt);
+    // const response = await index(prompt);
     // API GEMINI - SAMUEL
-    //const response = await promptTexto(prompt);
+    const response = await promptTexto(prompt);
 
     // Limpiamos el texto y parseamos a JSON
     const raw = response.trim().replace(/```json|```/g, "");

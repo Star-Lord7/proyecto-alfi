@@ -1,0 +1,38 @@
+[33m8d8021e[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mfrontend[m[33m, [m[1;31morigin/frontend[m[33m)[m Visualizacion de tarjetas por Coleccion y Generacion de tarjeta desde el frontend
+[33m9ccb34c[m Visualizacion de Tarjetas segun el Estado
+[33m3b42fab[m Componente de Colecciones completo y funcional
+[33mcca4898[m Visionado de las tarjetas segun el estado
+[33m6b2da13[m Funcionalidad para cambiar el ESTADO de las tarjetas (Cards)
+[33ma00d74c[m Agregando nuevo boton -Ver Quizzes- al frontend de Temas
+[33mbb5b0a7[m ID agregado y archivos en español eliminados
+[33m46a1230[m Merge branch 'frontend' of https://github.com/Star-Lord7/proyecto-alfi into frontend
+[33m8d38175[m Crud funcional de Temas, con React
+[33m0c565ef[m Actualizacion de finanzas.css para mostrar la card de pregunta correctamente
+[33m4b31392[m Modulo de Temas y Colecciones configurado
+[33mcf47aa3[m Primer prototipo del Frontend llamando a los Temas desde la API
+[33mefaeb04[m Primer prototipo del Frontend llamando a los Temas desde la API
+[33ma281150[m Merge backend into frontend
+[33m06a0573[m Primer prototipo del Frontend llamando a los Temas desde la API
+[33mf76837a[m Configuracion de los ENUM en Prisma
+[33mdbd1a4e[m Configuracion de los ENUM en Prisma
+[33m5eb0e32[m Configuracion de los ENUM en Prisma
+[33m7334d79[m Primera version modular para guardar los datos generados por la IA (card)
+[33m7e7d383[m Remover backend/.env del repositorio
+[33md54d743[m Remover backend/.env del repositorio
+[33m61a30f5[m Primera version modular para guardar los datos generados por la IA (card)
+[33mc7a9424[m Prisma v6 configurado junto con las migraciones
+[33ma7e05d1[m Nuevo flujo con Card agregado
+[33m2bd74c2[m Conexión con el backend
+[33m3d96f5e[m Conexión con el backend
+[33mbd92d69[m Primer mockuop básico del frontend
+[33m40cdb84[m maximo de token
+[33mb6b8d04[m restore backend files from e3ac373
+[33mbe1ab78[m .gitignore
+[33md917350[m .gitignore
+[33m9874343[m Finanzas UI con card y progreso
+[33meb5e868[m Merge branch 'main' of https://github.com/Star-Lord7/proyecto-alfi
+[33m60722d5[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m Merge pull request #1 from Star-Lord7/backend
+[33me3ac373[m Actualizacion en finanzasModel para generar una pregunta en formato json
+[33meac99c9[m Revert "Primera prueba usando el modelo de IA Generativa"
+[33mcf228c2[m Primera prueba usando el modelo de IA Generativa
+[33md998c32[m[33m ([m[1;32mmain[m[33m)[m Proyecto ALFI
