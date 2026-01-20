@@ -1,4 +1,5 @@
 import express from "express";
+import { verifyToken } from "../middlewares/authMiddleware.js";
 import * as collectionController from "../controllers/collectionController.js";
 
 const router = express.Router();

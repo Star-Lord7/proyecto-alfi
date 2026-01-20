@@ -15,11 +15,9 @@ datasource db {
 }
 
 enum EstadoTarjeta {
-  GENERADA
   PENDIENTE_REVISION
   APROBADA
   RECHAZADA
-  PUBLICADA
 }
 
 enum NivelDificultad {
@@ -53,7 +51,7 @@ model Coleccion {
   titulo            String
   descripcion       String?
   cantidad_tarjetas Int
-  estado            String
+  estado            Boolean @default(true)
 
   temaId Int
   tema   Tema @relation(fields: [temaId], references: [id])
@@ -116,44 +114,112 @@ model RespuestaUsuario {
   opcion  OpcionRespuesta @relation(fields: [opcionId], references: [id])
   puntaje PuntajeUsuario  @relation(fields: [puntajeId], references: [id])
 
-  created_at DateTime @default(now())
+  created_at DateTime  @default(now())
+  updated_at DateTime  @updatedAt
+  deleted_at DateTime?
 
   @@map("respuestas_usuario")
 }
 
 model PuntajeUsuario {
   id          Int @id @default(autoincrement())
-  usuarioId   Int
+  perfilId    Int
   coleccionId Int
 
   respuestas   RespuestaUsuario[]
   puntajeFinal Int
-  fecha        DateTime           @default(now())
 
-  usuario   Usuario   @relation(fields: [usuarioId], references: [id])
+  created_at DateTime  @default(now())
+  updated_at DateTime  @updatedAt
+  deleted_at DateTime?
+
+  perfil    Perfil    @relation(fields: [perfilId], references: [id])
   coleccion Coleccion @relation(fields: [coleccionId], references: [id])
 
   @@map("puntajes_usuario")
 }
 
+model Perfil {
+  id       Int     @id @default(autoincrement())
+  nombre   String
+  apellido String
+  edad     Int?
+  telefono String?
+  estado   Boolean @default(true)
+
+  puntajeUsuarios PuntajeUsuario[]
+
+  usuarioId  Int
+  paisId     Int
+  segmentoId Int
+
+  usuario  Usuario  @relation(fields: [usuarioId], references: [id])
+  pais     Pais     @relation(fields: [paisId], references: [id])
+  segmento Segmento @relation(fields: [segmentoId], references: [id])
+
+  created_at DateTime  @default(now())
+  updated_at DateTime  @updatedAt
+  deleted_at DateTime?
+
+  @@map("perfiles")
+}
+
 enum Rol {
+  SUPERADMIN
   ADMIN
   USUARIO
 }
 
 model Usuario {
   id       Int     @id @default(autoincrement())
-  nombre   String
   email    String  @unique
   password String
   rol      Rol     @default(USUARIO) // Opcional, para admin o usuario normal
   estado   Boolean @default(true) // Usuario activo/inactivo
 
-  puntajes PuntajeUsuario[]
+  perfiles Perfil[]
+  tokens   Token[]
 
   created_at DateTime  @default(now())
   updated_at DateTime  @updatedAt
   deleted_at DateTime?
 
   @@map("usuarios")
+}
+
+model Token {
+  id        Int    @id @default(autoincrement())
+  token     String @unique
+  usuarioId Int
+
+  usuario Usuario @relation(fields: [usuarioId], references: [id])
+
+  created_at DateTime @default(now())
+}
+
+model Segmento {
+  id          Int     @id @default(autoincrement())
+  nombre      String  @unique
+  descripcion String?
+  estado      Boolean @default(true)
+
+  created_at DateTime  @default(now())
+  updated_at DateTime  @updatedAt
+  deleted_at DateTime?
+  perfiles   Perfil[]
+
+  @@map("segmentos")
+}
+
+model Pais {
+  id     Int     @id @default(autoincrement())
+  nombre String  @unique
+  estado Boolean @default(true)
+
+  created_at DateTime  @default(now())
+  updated_at DateTime  @updatedAt
+  deleted_at DateTime?
+  perfiles   Perfil[]
+
+  @@map("paises")
 }

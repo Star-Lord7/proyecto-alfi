@@ -241,7 +241,7 @@ export default function Temas() {
               <input
                 value={editNombre}
                 onChange={(e) => setEditNombre(e.target.value)}
-                className="w-full border rounded-lg px-3 py-2"
+                className="w-full border border-b-black rounded-lg px-3 py-2 text-black"
               />
             </div>
 
@@ -252,14 +252,14 @@ export default function Temas() {
               <textarea
                 value={editDescripcion}
                 onChange={(e) => setEditDescripcion(e.target.value)}
-                className="w-full border rounded-lg px-3 py-2"
+                className="w-full border border-b-black rounded-lg px-3 py-2 text-black"
               />
             </div>
 
             <div className="flex justify-end gap-3">
               <button
                 onClick={() => setShowEditModal(false)}
-                className="px-4 py-2 rounded bg-gray-200 hover:bg-gray-300"
+                className="px-4 py-2 rounded bg-gray-500 hover:bg-gray-400"
               >
                 Cancelar
               </button>

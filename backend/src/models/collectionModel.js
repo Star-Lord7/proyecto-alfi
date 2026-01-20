@@ -15,7 +15,7 @@ const getAllCollections = async () => {
       //   },
       // },
       where: {
-        estado: "ACTIVA",
+        estado: true,
       },
     });
     return collections;

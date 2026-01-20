@@ -1,14 +1,121 @@
 import prisma from "../src/config/prismaConfig.js";
 
 async function main() {
-  // Crear 2 usuarios de prueba
+  // Usuarios de prueba
   await prisma.usuario.createMany({
     data: [
-      { nombre: "Juan Perez", email: "juan@example.com", password: "123456" },
-      { nombre: "Maria Lopez", email: "maria@example.com", password: "123456" },
+      {
+        email: "superadmin@example.com",
+        password: "admin123",
+        rol: "SUPERADMIN",
+      },
+      {
+        email: "admin@example.com",
+        password: "admin123",
+        rol: "ADMIN",
+      },
+      { email: "juan@example.com", password: "123456" },
+      { email: "maria@example.com", password: "123456" },
     ],
     skipDuplicates: true, // evita errores si ya existen
   });
+
+  await prisma.pais.createMany({
+    data: [
+      { nombre: "Guatemala" },
+      { nombre: "El Salvador" },
+      { nombre: "Honduras" },
+      { nombre: "Nicaragua" },
+      { nombre: "Costa Rica" },
+      { nombre: "Panamá" },
+    ],
+    skipDuplicates: true,
+  });
+
+  await prisma.segmento.createMany({
+    data: [
+      { nombre: "Niños" },
+      { nombre: "Adolescentes" },
+      { nombre: "Jóvenes" },
+      { nombre: "Adultos" },
+      { nombre: "Adultos Mayores" },
+    ],
+    skipDuplicates: true,
+  });
+
+  //Insertar datos de Perfiles segun los ususarios creados
+  const superAdmin = await prisma.usuario.findUnique({
+    where: { email: "superadmin@example.com" },
+  });
+
+  const admin = await prisma.usuario.findUnique({
+    where: { email: "admin@example.com" },
+  });
+
+  const juan = await prisma.usuario.findUnique({
+    where: { email: "juan@example.com" },
+  });
+
+  const maria = await prisma.usuario.findUnique({
+    where: { email: "maria@example.com" },
+  });
+
+  const pais = await prisma.pais.findUnique({
+    where: { nombre: "El Salvador" },
+  });
+
+  const adultos = await prisma.segmento.findUnique({
+    where: { nombre: "Adultos" },
+  });
+
+  const jovenes = await prisma.segmento.findUnique({
+    where: { nombre: "Jóvenes" },
+  });
+
+  const perfiles = [
+    {
+      nombre: "Super",
+      apellido: "Admin",
+      usuarioId: superAdmin.id,
+      paisId: pais.id,
+      segmentoId: adultos.id,
+    },
+    {
+      nombre: "Admin",
+      apellido: "User",
+      usuarioId: admin.id,
+      paisId: pais.id,
+      segmentoId: adultos.id,
+    },
+    {
+      nombre: "Juan",
+      apellido: "Pérez",
+      edad: 40,
+      telefono: "555-1234",
+      usuarioId: juan.id,
+      paisId: pais.id,
+      segmentoId: adultos.id,
+    },
+    {
+      nombre: "María",
+      apellido: "Gómez",
+      edad: 20,
+      telefono: "555-5678",
+      usuarioId: maria.id,
+      paisId: pais.id,
+      segmentoId: jovenes.id,
+    },
+  ];
+
+  for (const perfil of perfiles) {
+    const existe = await prisma.perfil.findFirst({
+      where: { usuarioId: perfil.usuarioId },
+    });
+
+    if (!existe) {
+      await prisma.perfil.create({ data: perfil });
+    }
+  }
 
   // 5 temas de finanzas
   const temas = [
@@ -175,7 +282,7 @@ async function main() {
             titulo: coleccionData.titulo,
             descripcion: coleccionData.descripcion,
             cantidad_tarjetas: 0,
-            estado: "ACTIVA",
+            estado: true,
             temaId: tema.id,
           },
         });

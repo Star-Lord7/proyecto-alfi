@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router"; //Hook para redirigir a otra página
 
 export default function CrearTema() {
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
 
   const [nombre, setNombre] = useState("");
   const [descripcion, setDescripcion] = useState("");
@@ -51,7 +51,6 @@ export default function CrearTema() {
   };
 
   return (
-    
     <div className="min-h-screen bg-gray-200 px-10 py-12">
       <div className="max-w-xl mx-auto bg-white rounded-xl shadow-md p-8">
         <h1 className="text-2xl font-bold text-emerald-800 mb-6">Crear Tema</h1>
@@ -65,7 +64,7 @@ export default function CrearTema() {
               type="text"
               value={nombre}
               onChange={(e) => setNombre(e.target.value)}
-              className="w-full border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-emerald-600"
+              className="w-full border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-emerald-600 border-b-black text-black"
             />
           </div>
 
@@ -76,7 +75,7 @@ export default function CrearTema() {
             <textarea
               value={descripcion}
               onChange={(e) => setDescripcion(e.target.value)}
-              className="w-full border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-emerald-600"
+              className="w-full border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-emerald-600 border-b-black text-black"
               rows={4}
             />
           </div>

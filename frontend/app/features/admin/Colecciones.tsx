@@ -362,7 +362,7 @@ export default function Colecciones() {
 
               {/* BOTONES */}
               <div className="flex justify-end gap-3 mt-6">
-              {/* boton para ver las preguntas aprobadas de una coleccion en especifico */}
+                {/* boton para ver las preguntas aprobadas de una coleccion en especifico */}
                 <button
                   className="bg-emerald-700 text-white px-4 py-2 rounded-lg text-sm font-semibold hover:bg-emerald-800 transition"
                   onClick={() =>
@@ -425,7 +425,7 @@ export default function Colecciones() {
                   value={titulo}
                   onChange={(e) => setTitulo(e.target.value)}
                   placeholder=""
-                  className="w-full border rounded-lg px-4 py-2 focus:ring-2 focus:ring-emerald-500 focus:outline-none"
+                  className="w-full border rounded-lg px-4 py-2 focus:ring-2 focus:ring-emerald-500 focus:outline-none border-b-black text-black"
                 />
               </div>
 
@@ -439,7 +439,7 @@ export default function Colecciones() {
                   onChange={(e) => setDescripcion(e.target.value)}
                   placeholder="Describe brevemente el contenido de esta colección"
                   rows={3}
-                  className="w-full border rounded-lg px-4 py-2 resize-none focus:ring-2 focus:ring-emerald-500 focus:outline-none"
+                  className="w-full border rounded-lg px-4 py-2 resize-none focus:ring-2 focus:ring-emerald-500 focus:outline-none border-b-black text-black"
                 />
               </div>
 
@@ -451,7 +451,7 @@ export default function Colecciones() {
                 <select
                   value={temaId}
                   onChange={(e) => setTemaId(Number(e.target.value))}
-                  className="w-full border rounded-lg px-4 py-2 bg-white focus:ring-2 focus:ring-emerald-500 focus:outline-none"
+                  className="w-full border rounded-lg px-4 py-2 bg-white focus:ring-2 focus:ring-emerald-500 focus:outline-none border-b-black text-black"
                 >
                   <option value="">Selecciona un tema</option>
                   {temas.map((tema) => (
@@ -474,7 +474,7 @@ export default function Colecciones() {
                     onChange={(e) =>
                       setCantidadTarjetas(Number(e.target.value))
                     }
-                    className="w-full border rounded-lg px-4 py-2 focus:ring-2 focus:ring-emerald-500 focus:outline-none"
+                    className="w-full border rounded-lg px-4 py-2 focus:ring-2 focus:ring-emerald-500 focus:outline-none border-b-black text-black"
                   />
                 </div>
                 {/* ESTADO */}
@@ -487,7 +487,7 @@ export default function Colecciones() {
                     onChange={(e) =>
                       setEstado(e.target.value as "ACTIVA" | "INACTIVA")
                     }
-                    className="w-full border rounded-lg px-4 py-2 bg-white focus:ring-2 focus:ring-emerald-500 focus:outline-none"
+                    className="w-full border rounded-lg px-4 py-2 bg-white focus:ring-2 focus:ring-emerald-500 focus:outline-none border-b-black text-black"
                   >
                     <option value="ACTIVA">Activa</option>
                     <option value="INACTIVA">Inactiva</option>
