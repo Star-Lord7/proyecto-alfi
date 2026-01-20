@@ -4,6 +4,8 @@ import finanzasRoutes from "./routes/finanzasRoutes.js";
 import cardRoutes from "./routes/cardRoutes.js";
 import themeRouter from "./routes/themeRoutes.js";
 import collectionRouter from "./routes/collectionRoutes.js";
+import userRoutes from "./routes/userRoutes.js";
+import authRoutes from "./routes/authRoutes.js";
 
 const app = express();
 
@@ -14,8 +16,10 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use("/api/alfi", finanzasRoutes);
+app.use("/api-alfi/auth", authRoutes);
 app.use("/api-alfi/tarjetas", cardRoutes);
 app.use("/api-alfi/temas", themeRouter);
 app.use("/api-alfi/colecciones", collectionRouter);
+app.use("/api-alfi/usuarios", userRoutes);
 
 export default app;
