@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router";
+import { useGenerarTarjeta } from "../../hooks/useGenerarTarjeta";
+import { ModalCrearTarjeta } from "../../components/ModalCrearTarjeta";
 
 interface Opcion {
   id: number;
@@ -18,18 +20,6 @@ interface Tarjeta {
   opciones: Opcion[];
 }
 
-interface GenerarTarjeta {
-  segmento: string; //sera el titulo de la coleccion
-  //nivel: string;
-  coleccionId: number;
-  dificultad: string;
-}
-
-interface Coleccion {
-  id: number;
-  titulo: string;
-}
-
 type EstadoFiltro = "PENDIENTE_REVISION" | "APROBADA" | "RECHAZADA";
 
 export default function RevisarTarjetas() {
@@ -45,19 +35,22 @@ export default function RevisarTarjetas() {
     useState<EstadoFiltro>("PENDIENTE_REVISION");
   const [tarjetaSeleccionada, setTarjetaSeleccionada] =
     useState<Tarjeta | null>(null);
-  const [colecciones, setColecciones] = useState<Coleccion[]>([]);
+
   const [mostrarModalCrear, setMostrarModalCrear] = useState(false);
-  const [formTarjeta, setFormTarjeta] = useState<GenerarTarjeta>({
-    segmento: "",
-    //nivel: "",
-    coleccionId: 0,
-    dificultad: "BASICO",
-  });
-  const [creandoTarjeta, setCreandoTarjeta] = useState(false);
-  const [mensajeCrear, setMensajeCrear] = useState<{
-    tipo: "loading" | "success" | "error";
-    texto: string;
-  } | null>(null);
+  const {
+  temas,
+  colecciones,
+  temaId,
+  setTemaId,
+  coleccionId,
+  setColeccionId,
+  segmento,
+  setSegmento,
+  dificultad,
+  setDificultad,
+  handleCrearTarjeta,
+  mensaje,
+} = useGenerarTarjeta();
 
   //consulta las tarjetas segun su estado
   useEffect(() => {
@@ -83,62 +76,6 @@ export default function RevisarTarjetas() {
       .catch(() => setError("Ocurrió un error al cargar las tarjetas"))
       .finally(() => setLoading(false));
   }, [estadoFiltro]);
-
-  //para para traer las colecciones
-  useEffect(() => {
-    fetch("http://localhost:3000/api-alfi/colecciones")
-      .then((res) => {
-        if (!res.ok) {
-          throw new Error("No se pudieron cargar las colecciones");
-        }
-        return res.json();
-      })
-      .then((data) => setColecciones(data))
-      .catch((err) => console.error(err));
-  }, []);
-
-  //funcion para poder generar una tarjeta
-  const handleCrearTarjeta = async () => {
-    if (!formTarjeta.coleccionId) return;
-
-    setCreandoTarjeta(true);
-    setMensajeCrear({
-      tipo: "loading",
-      texto: "Creando tarjeta, espere por favor :)...",
-    });
-
-    try {
-      const res = await fetch("http://localhost:3000/api-alfi/tarjetas", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formTarjeta),
-      });
-
-      if (!res.ok) {
-        throw new Error(await res.text());
-        //console.error(await res.text());
-        //return;
-      }
-
-      setMensajeCrear({
-        tipo: "success",
-        texto: "Tarjeta creada correctamente!",
-      });
-
-      // opcional: cerrar modal después de un momento
-      setTimeout(() => {
-        setMostrarModalCrear(false);
-        setMensajeCrear(null);
-      }, 1500);
-    } catch (error) {
-      setMensajeCrear({
-        tipo: "error",
-        texto: "Error alc rear la tarjeta",
-      });
-    } finally {
-      setCreandoTarjeta(false);
-    }
-  };
 
   //funcion para cambiar el estado de una tarjeta
   const handleChangeEstado = async (nuevoEstado: "APROBADA" | "RECHAZADA") => {
@@ -267,6 +204,7 @@ export default function RevisarTarjetas() {
             Rechazadas
           </button>
         </div>
+
         {/* boton crear tarjeta */}
         <button
           onClick={() => setMostrarModalCrear(true)}
@@ -554,93 +492,23 @@ export default function RevisarTarjetas() {
         </div>
       )}
 
-      {mostrarModalCrear && (
-        <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
-          <div className="bg-white rounded-xl shadow-xl max-w-md w-full p-6 relative">
-            <button
-              onClick={() => setMostrarModalCrear(false)}
-              className="absolute top-4 right-4 text-gray-400 hover:text-gray-600"
-            >
-              ✕
-            </button>
-
-            <h2 className="text-xl font-bold text-emerald-800 mb-4">
-              Crear tarjeta
-            </h2>
-
-            {/* Select colección */}
-            <select
-              value={formTarjeta.coleccionId}
-              onChange={(e) => {
-                const id = Number(e.target.value);
-                const coleccion = colecciones.find((c) => c.id === id);
-
-                if (!coleccion) return;
-
-                setFormTarjeta({
-                  ...formTarjeta,
-                  coleccionId: coleccion.id,
-                  segmento: coleccion.titulo,
-                });
-              }}
-              className="w-full border rounded-lg p-2 mb-3"
-            >
-              <option value="">Seleccione una colección</option>
-              {colecciones.map((c) => (
-                <option key={c.id} value={c.id}>
-                  {c.titulo}
-                </option>
-              ))}
-            </select>
-
-            {/* Dificultad */}
-            <select
-              value={formTarjeta.dificultad}
-              onChange={(e) =>
-                setFormTarjeta({ ...formTarjeta, dificultad: e.target.value })
-              }
-              className="w-full border rounded-lg p-2 mb-4"
-            >
-              <option value="BASICA">Básica</option>
-              <option value="INTERMEDIO">Intermedio</option>
-              <option value="AVANZADA">Avanzada</option>
-            </select>
-
-            {/* Info del segmento */}
-            {formTarjeta.segmento && (
-              <p className="text-sm text-gray-600 mb-4">
-                Segmento:{" "}
-                <span className="font-semibold text-emerald-700">
-                  {formTarjeta.segmento}
-                </span>
-              </p>
-            )}
-
-            {mensajeCrear && (
-              <div
-                className={`mb-4 text-sm font-semibold text-center p-2 rounded-lg ${
-                  mensajeCrear.tipo === "loading"
-                    ? "bg-blue-100 text-blue-700"
-                    : mensajeCrear.tipo === "success"
-                      ? "bg-emerald-100 text-emerald-700"
-                      : "bg-red-100 text-red-700"
-                }`}
-              >
-                {mensajeCrear.texto}
-              </div>
-            )}
-
-            <button
-              onClick={handleCrearTarjeta}
-              disabled={creandoTarjeta || !formTarjeta.coleccionId}
-              className="w-full bg-emerald-600 text-white py-2 rounded-lg font-semibold
-             hover:bg-emerald-700 disabled:opacity-50 disabled:cursor-not-allowed"
-            >
-              {creandoTarjeta ? "Creando..." : "Crear tarjeta"}
-            </button>
-          </div>
-        </div>
-      )}
+      {/* Modal para crear tarjeta */}
+      <ModalCrearTarjeta
+        mostrar={mostrarModalCrear}
+        onClose={() => setMostrarModalCrear(false)}
+        temas={temas}
+        colecciones={colecciones}
+        temaId={temaId}
+        setTemaId={setTemaId}
+        coleccionId={coleccionId}
+        setColeccionId={setColeccionId}
+        segmento={segmento}
+        setSegmento={setSegmento}
+        dificultad={dificultad}
+        setDificultad={setDificultad}
+        onCrear={handleCrearTarjeta}
+        mensaje={mensaje}
+      />
     </div>
   );
 }
