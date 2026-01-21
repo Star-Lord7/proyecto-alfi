@@ -6,7 +6,7 @@ const collectionById = async (coleccionId) => {
     const idParse = parseInt(coleccionId, 10);
     const collection = await getCollectionById(idParse);
     // Retornamos el nombre de la colección o "Desconocida" si no se encuentra
-    return collection ? collection.nombre : "Desconocida";
+    return collection ? collection.titulo : "Desconocida";
   } catch (error) {
     throw new Error("Error obteniendo colección: " + error.message);
   }
@@ -35,6 +35,8 @@ INSTRUCCIONES DE FORMATO (OBLIGATORIAS)
 - NO incluyas texto adicional
 - NO uses comillas dobles dentro de los textos
 - NO uses saltos de línea dentro de los valores
+- El orden de las opciones DEBE SER ALEATORIO
+- La respuesta correcta NO debe estar siempre en la misma posición
 
 ESTRUCTURA OBLIGATORIA
 {
@@ -42,27 +44,34 @@ ESTRUCTURA OBLIGATORIA
   "pregunta": "Texto de la pregunta en base a la categoría, segmento, nivel y colección",
   "opciones": [
     {
-      "texto": "Opcion 1",
-      "esCorrecta": true,
-      "explicacion": "Explicacion"
+      "texto": "Opcion 1 realista",
+      "esCorrecta": true | false,
+      "explicacion": "Explicacion educativa clara"
     },
     {
-      "texto": "Opcion 2",
-      "esCorrecta": false,
-      "explicacion": "Explicacion"
+      "texto": "Opcion 2 realista",
+      "esCorrecta": true | false,
+      "explicacion": "Explicacion educativa clara"
     },
     {
-      "texto": "Opcion 3",
-      "esCorrecta": false,
-      "explicacion": "Explicacion"
+      "texto": "Opcion 3 realista",
+      "esCorrecta": true | false,
+      "explicacion": "Explicacion educativa clara"
     }
   ]
 }
 
+REGLAS DE OPCIONES (MUY IMPORTANTE)
+- Deben existir EXACTAMENTE 3 opciones
+- SOLO UNA opción puede ser correcta
+- Las opciones incorrectas deben ser plausibles y comunes en la vida real
+- Evita opciones absurdas, graciosas o claramente incorrectas
+- Las opciones deben diferenciarse por conceptos, no por palabras obvias
+
 REGLAS DE CALIDAD
-- Solo una opcion correcta
-- Tres opciones exactas
-- Lenguaje adecuado al segmento
-- Contexto realista
+- Lenguaje adecuado al segmento (${segmento})
+- Dificultad coherente con el nivel (${dificultad})
+- Contexto realista y cotidiano
 - Enfoque educativo, no comercial
+- No repetir estructuras ni patrones evidentes
 `;
