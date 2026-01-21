@@ -12,4 +12,7 @@ export default [
   // USER
   route("user", "routes/user/index.tsx"),
   route("user/finanzas", "routes/user/finanzas.tsx"),
+  // AUTH
+  route("login", "routes/auth/login.tsx"),
+  route("registro", "routes/auth/register.tsx"),
 ] satisfies RouteConfig;

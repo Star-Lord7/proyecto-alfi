@@ -85,10 +85,25 @@ const deleteCollection = async (id) => {
   }
 };
 
+//Metodo para obtener coleccion segun un tema ID
+const findByThemeId = async (temaId) => {
+  try {
+    return await prisma.coleccion.findMany({
+      where: {
+        temaId: Number(temaId),
+        estado: true,
+      },
+    });
+  } catch (error) {
+    throw new Error("Error en collectionModel (findByThemeId): " + error.message);
+  }
+};
+
 export {
   getAllCollections,
   getCollectionById,
   createCollection,
   updateCollection,
   deleteCollection,
+  findByThemeId,
 };
