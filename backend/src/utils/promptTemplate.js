@@ -12,6 +12,18 @@ const collectionById = async (coleccionId) => {
   }
 };
 
+//para que varien las preguntas
+const tiposPregunta = [
+  "Pregunta de Conceptos", // ¿Qué es exactamente X?
+  "Identificación de Característica", // ¿Cuál de estos rasgos pertenece a X?
+  "Diferenciación", // Diferencia entre este concepto y uno similar
+  "Aplicación Práctica", // Caso real de uso del concepto
+  "Análisis de Consecuencia", // Si pasa X, ¿qué sucede con este concepto?
+  "Identificación de Mito", // Cuál de estas creencias sobre el tema es falsa
+];
+
+const tipoSeleccionado = tiposPregunta[Math.floor(Math.random() * tiposPregunta.length)];
+
 // Plantilla de prompt para generar tarjetas
 // Extraemos el nombre de la colección usando su ID
 // y tambien usamos los otros parámetros para personalizar el prompt
@@ -29,6 +41,7 @@ CONTEXTO
 - Segmento: ${segmento}
 - Colección: ${await collectionById(coleccionId)}
 - Dificultad: ${dificultad}
+- TIPO DE PREGUNTA: ${tipoSeleccionado}
 
 INSTRUCCIONES DE FORMATO (OBLIGATORIAS)
 - Devuelve EXCLUSIVAMENTE JSON válido
@@ -38,23 +51,30 @@ INSTRUCCIONES DE FORMATO (OBLIGATORIAS)
 - El orden de las opciones DEBE SER ALEATORIO
 - La respuesta correcta NO debe estar siempre en la misma posición
 
+REGLAS DE VARIABILIDAD
+- En base al tipo de pregunta relacionado al titulo de Coleccion
+- Calidad de Distractores: 
+    * Una opción es la CORRECTA.
+    * Una opción parece lógica pero es incorrecta.
+    * Una opción es un "Error comun" (fallo por poco o confusión de términos similares).
+
 ESTRUCTURA OBLIGATORIA
 {
   "titulo": "Titulo corto",
   "pregunta": "Texto de la pregunta en base a la categoría, segmento, nivel y colección",
   "opciones": [
     {
-      "texto": "Opcion 1 realista",
+      "texto": "Opcion 1",
       "esCorrecta": true | false,
       "explicacion": "Explicacion educativa clara"
     },
     {
-      "texto": "Opcion 2 realista",
+      "texto": "Opcion 2",
       "esCorrecta": true | false,
       "explicacion": "Explicacion educativa clara"
     },
     {
-      "texto": "Opcion 3 realista",
+      "texto": "Opcion 3",
       "esCorrecta": true | false,
       "explicacion": "Explicacion educativa clara"
     }
