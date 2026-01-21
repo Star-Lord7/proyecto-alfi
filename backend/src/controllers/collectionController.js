@@ -60,10 +60,23 @@ const removeCollection = async (req, res) => {
   }
 };
 
+//obtener colecciones por tema
+const getCollectionsByTheme = async (req, res) => {
+  try {
+    const { temaId } = req.params;
+    const colecciones = await colectionModel.findByThemeId(temaId);
+    res.json(colecciones);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
+
 export {
   getAllCollections,
   getCollectionById,
   addCollection,
   editCollection,
   removeCollection,
+  getCollectionsByTheme,
 };

@@ -6,11 +6,23 @@ const collectionById = async (coleccionId) => {
     const idParse = parseInt(coleccionId, 10);
     const collection = await getCollectionById(idParse);
     // Retornamos el nombre de la colección o "Desconocida" si no se encuentra
-    return collection ? collection.nombre : "Desconocida";
+    return collection ? collection.titulo : "Desconocida";
   } catch (error) {
     throw new Error("Error obteniendo colección: " + error.message);
   }
 };
+
+//para que varien las preguntas
+const tiposPregunta = [
+  "Pregunta de Conceptos", // ¿Qué es exactamente X?
+  "Identificación de Característica", // ¿Cuál de estos rasgos pertenece a X?
+  "Diferenciación", // Diferencia entre este concepto y uno similar
+  "Aplicación Práctica", // Caso real de uso del concepto
+  "Análisis de Consecuencia", // Si pasa X, ¿qué sucede con este concepto?
+  "Identificación de Mito", // Cuál de estas creencias sobre el tema es falsa
+];
+
+const tipoSeleccionado = tiposPregunta[Math.floor(Math.random() * tiposPregunta.length)];
 
 // Plantilla de prompt para generar tarjetas
 // Extraemos el nombre de la colección usando su ID
@@ -29,12 +41,22 @@ CONTEXTO
 - Segmento: ${segmento}
 - Colección: ${await collectionById(coleccionId)}
 - Dificultad: ${dificultad}
+- TIPO DE PREGUNTA: ${tipoSeleccionado}
 
 INSTRUCCIONES DE FORMATO (OBLIGATORIAS)
 - Devuelve EXCLUSIVAMENTE JSON válido
 - NO incluyas texto adicional
 - NO uses comillas dobles dentro de los textos
 - NO uses saltos de línea dentro de los valores
+- El orden de las opciones DEBE SER ALEATORIO
+- La respuesta correcta NO debe estar siempre en la misma posición
+
+REGLAS DE VARIABILIDAD
+- En base al tipo de pregunta relacionado al titulo de Coleccion
+- Calidad de Distractores: 
+    * Una opción es la CORRECTA.
+    * Una opción parece lógica pero es incorrecta.
+    * Una opción es un "Error comun" (fallo por poco o confusión de términos similares).
 
 ESTRUCTURA OBLIGATORIA
 {
@@ -43,26 +65,33 @@ ESTRUCTURA OBLIGATORIA
   "opciones": [
     {
       "texto": "Opcion 1",
-      "esCorrecta": true,
-      "explicacion": "Explicacion"
+      "esCorrecta": true | false,
+      "explicacion": "Explicacion educativa clara"
     },
     {
       "texto": "Opcion 2",
-      "esCorrecta": false,
-      "explicacion": "Explicacion"
+      "esCorrecta": true | false,
+      "explicacion": "Explicacion educativa clara"
     },
     {
       "texto": "Opcion 3",
-      "esCorrecta": false,
-      "explicacion": "Explicacion"
+      "esCorrecta": true | false,
+      "explicacion": "Explicacion educativa clara"
     }
   ]
 }
 
+REGLAS DE OPCIONES (MUY IMPORTANTE)
+- Deben existir EXACTAMENTE 3 opciones
+- SOLO UNA opción puede ser correcta
+- Las opciones incorrectas deben ser plausibles y comunes en la vida real
+- Evita opciones absurdas, graciosas o claramente incorrectas
+- Las opciones deben diferenciarse por conceptos, no por palabras obvias
+
 REGLAS DE CALIDAD
-- Solo una opcion correcta
-- Tres opciones exactas
-- Lenguaje adecuado al segmento
-- Contexto realista
+- Lenguaje adecuado al segmento (${segmento})
+- Dificultad coherente con el nivel (${dificultad})
+- Contexto realista y cotidiano
 - Enfoque educativo, no comercial
+- No repetir estructuras ni patrones evidentes
 `;
