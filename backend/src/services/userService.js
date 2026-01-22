@@ -30,6 +30,7 @@ const verifyPassword = async (email, password) => {
       id: true,
       email: true,
       password: true,
+      rol: true,
     },
   });
 
@@ -38,10 +39,10 @@ const verifyPassword = async (email, password) => {
   const isMatch = await bcrypt.compare(password, user.password);
   if (!isMatch) return null;
 
-  // 🔥 DEVUELVES DATOS REALES
   return {
     id: user.id,
     email: user.email,
+    rol: user.rol,
   };
 };
 

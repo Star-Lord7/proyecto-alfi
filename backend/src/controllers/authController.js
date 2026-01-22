@@ -1,6 +1,7 @@
 import jwt from "jsonwebtoken";
 import { verifyPassword } from "../services/userService.js";
 import { deleteToken, saveToken } from "../models/tokenModel.js";
+import { getRolUserByEmail } from "../models/userModel.js";
 
 const login = async (req, res) => {
   try {
@@ -24,11 +25,11 @@ const login = async (req, res) => {
     res.status(200).json({
       message: "Inicio de sesión exitoso",
       token: token,
-      // user: {
-      //   id: user.id,
-      //   email: user.email,
-      //   name: user.name,
-      // },
+      user: {
+        id: user.id,
+        email: user.email,
+        rol: user.rol,
+      },
     });
   } catch (error) {
     return res.status(500).json({

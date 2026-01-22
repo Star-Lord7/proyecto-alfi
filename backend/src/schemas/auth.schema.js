@@ -16,6 +16,7 @@ const loginSchema = z
         path: ["email", "password"],
         message: "Correo electrónico o contraseña incorrectos",
       });
+      return;
     }
 
     const validPassword = await verifyPassword(data.email, data.password);
