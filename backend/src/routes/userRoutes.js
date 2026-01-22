@@ -17,6 +17,6 @@ router.put("/:id", userController.editUser);
 
 // ADMIN
 router.get("/", userController.getUsers);
-router.delete("/:id", verifyToken, userController.removeUser);
+router.delete("/:id", userController.removeUser);
 
 export default router;

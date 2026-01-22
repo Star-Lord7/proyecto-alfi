@@ -71,6 +71,20 @@ const getUserById = async (id) => {
   }
 };
 
+const getRolUserByEmail = async (email) => {
+  try {
+    const rolUser = await prisma.usuario.findUnique({
+      where: { email: email },
+      select: {
+        rol: true,
+      },
+    });
+    return rolUser;
+  } catch (error) {
+    throw new Error("Error en userModel: " + error.message);
+  }
+};
+
 const createUser = async (email, password, rol, perfil) => {
   try {
     const hashedPassword = await bcrypt.hash(password, 10);
@@ -196,4 +210,11 @@ const deleteUser = async (id) => {
   }
 };
 
-export { getAllUsers, getUserById, createUser, updateUser, deleteUser };
+export {
+  getAllUsers,
+  getUserById,
+  createUser,
+  updateUser,
+  deleteUser,
+  getRolUserByEmail,
+};

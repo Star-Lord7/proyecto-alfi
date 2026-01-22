@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { getUserByEmail } from "../services/userService.js";
 import { existCountry } from "../services/paisService.js";
 import { existSegment } from "../services/segmentoService.js";
 
@@ -15,6 +16,13 @@ const createUserSchema = z
       .regex(/[A-Z]/, "La contraseña debe contener al menos una letra mayúscula")
       .regex(/[0-9]/, "La contraseña debe contener al menos un número")
       .regex(/[^a-zA-Z0-9]/, "La contraseña debe contener al menos un carácter especial")*/
+    confirmPassword: z.string(
+      "La confirmacion de la contraseña es obligatoria",
+    ),
+    rol: z
+      .string()
+      .optional()
+      .refine((val) => val === "USER" || val === "ADMIN"),
     perfil: z.object({
       nombre: z.string("El nombre es obligatorio"),
       apellido: z.string().optional(),
@@ -29,6 +37,23 @@ const createUserSchema = z
     }),
   })
   .superRefine(async (data, ctx) => {
+    const existingUser = await getUserByEmail(data.email);
+    if (existingUser) {
+      ctx.addIssue({
+        code: "custom",
+        path: ["email"],
+        message: "El correo electronico ya esta registrado",
+      });
+    }
+
+    if (data.password != data.confirmPassword) {
+      ctx.addIssue({
+        code: "custom",
+        path: ["confirmarPassword", "password"],
+        message: "Las contraseñas no coinciden",
+      });
+    }
+
     const countryExists = await existCountry(data.perfil.paisId);
     if (!countryExists) {
       ctx.addIssue({
@@ -37,6 +62,7 @@ const createUserSchema = z
         path: ["perfil", "paisId"],
       });
     }
+
     const segmentExists = await existSegment(data.perfil.segmentoId);
     if (!segmentExists) {
       ctx.addIssue({
