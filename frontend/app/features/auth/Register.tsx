@@ -1,23 +1,37 @@
 import { useState } from "react";
+import logo from "../../assets/logo.png.png";
 
 export default function Register() {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-white to-teal-50 flex items-center justify-center p-4 py-12">
-      <div className="w-full max-w-2xl">
+    <div className="relative min-h-screen flex items-center justify-center p-4 overflow-hidden">
+      
+      {/* BACKGROUND IMAGE */}
+      <div
+  className="absolute inset-0 bg-cover bg-center scale-110 blur-[6px]"
+  style={{
+    backgroundImage: "url('/assets/bg.png')",
+  }}
+/>
+
+      {/* OVERLAY */}
+      <div className="absolute inset-0 bg-white/60" />
+
+      {/* CONTENT */}
+      <div className="relative z-10 w-full max-w-2xl">
+
         {/* Logo Section */}
         <div className="text-center mb-8">
-          <div className="inline-flex items-center gap-3 mb-4">
-            <div className="w-12 h-12 bg-gradient-to-br from-emerald-600 to-teal-600 rounded-xl flex items-center justify-center shadow-lg">
-              <span className="text-white font-bold text-xl">A</span>
-            </div>
-            <h1 className="text-3xl font-bold bg-gradient-to-r from-emerald-700 to-teal-600 bg-clip-text text-transparent">
-              ALFI
-            </h1>
+          <div className="flex justify-center mb-4">
+            <img
+              src={logo}
+              alt="Logo"
+              className="h-16 w-auto"
+            />
           </div>
-          <p className="text-gray-600">Crea tu cuenta y comienza a aprender con ALFI</p>
+          <p className="text-gray-600">Crea tu cuenta</p>
         </div>
 
         {/* Register Card */}
@@ -51,7 +65,8 @@ export default function Register() {
                     id="email"
                     name="email"
                     type="email"
-                    className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all outline-none"
+                    className="text-gray-900 placeholder-gray-400
+w-full pl-10 pr-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all outline-none"
                     placeholder="tu@ejemplo.com"
                     required
                   />
@@ -75,7 +90,8 @@ export default function Register() {
                       id="password"
                       name="password"
                       type={showPassword ? "text" : "password"}
-                      className="w-full pl-10 pr-12 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all outline-none"
+                      className="text-gray-900 placeholder-gray-400
+w-full pl-10 pr-12 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all outline-none"
                       placeholder="••••••••"
                       required
                     />
@@ -114,7 +130,8 @@ export default function Register() {
                       name="confirmPassword"
                       type={showConfirmPassword ? "text" : "password"}
                     //   onChange={handleChange}
-                      className="w-full pl-10 pr-12 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all outline-none"
+                      className="text-gray-900 placeholder-gray-400
+w-full pl-10 pr-12 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all outline-none"
                       placeholder="••••••••"
                       required
                     />
@@ -159,7 +176,8 @@ export default function Register() {
                     name="nombre"
                     type="text"
                     // onChange={handleChange}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all outline-none"
+                    className="text-gray-900 placeholder-gray-400
+w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all outline-none"
                     placeholder="Juan"
                     required
                   />
@@ -175,7 +193,8 @@ export default function Register() {
                     name="apellido"
                     type="text"
                     // onChange={handleChange}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all outline-none"
+                    className="text-gray-900 placeholder-gray-400
+w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all outline-none"
                     placeholder="Pérez"
                     required
                   />
@@ -193,7 +212,8 @@ export default function Register() {
                     min="18"
                     max="120"
                     // onChange={handleChange}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all outline-none"
+                    className="text-gray-900 placeholder-gray-400
+w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all outline-none"
                     placeholder="25"
                     required
                   />
@@ -209,7 +229,8 @@ export default function Register() {
                     name="telefono"
                     type="tel"
                     // onChange={handleChange}
-                    className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all outline-none"
+                    className="text-gray-900 placeholder-gray-400
+w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all outline-none"
                     placeholder="+503 1234-5678"
                     required
                   />

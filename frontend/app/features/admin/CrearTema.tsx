@@ -51,42 +51,63 @@ export default function CrearTema() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-200 px-10 py-12">
-      <div className="max-w-xl mx-auto bg-white rounded-xl shadow-md p-8">
-        <h1 className="text-2xl font-bold text-emerald-800 mb-6">Crear Tema</h1>
+    <div className="min-h-screen bg-[#02734A] px-6 lg:px-12 py-12">
 
-        <form onSubmit={handleSubmit} className="space-y-5">
+      {/* VOLVER */}
+      <button
+        onClick={() => navigate("/admin/temas")}
+        className="inline-block mb-8 bg-white px-5 py-2 rounded-lg shadow text-emerald-800 font-semibold hover:shadow-md transition"
+      >
+        Volver
+      </button>
+
+      {/* HEADER */}
+      <header className="text-center mb-10 text-white">
+        <h1 className="text-4xl font-bold">Crear Tema</h1>
+        <p className="opacity-90 mt-2">
+          Agrega un nuevo módulo de aprendizaje a la plataforma
+        </p>
+      </header>
+
+      {/* CARD */}
+      <div className="max-w-xl mx-auto bg-white rounded-2xl shadow-lg p-8">
+        <form onSubmit={handleSubmit} className="space-y-6">
+
           <div>
-            <label className="block text-gray-700 font-medium mb-1">
-              Nombre
+            <label className="block text-gray-700 font-semibold mb-1">
+              Nombre del tema
             </label>
             <input
               type="text"
               value={nombre}
               onChange={(e) => setNombre(e.target.value)}
-              className="w-full border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-emerald-600 border-b-black text-black"
+              className="w-full border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-emerald-600 text-black"
             />
           </div>
 
           <div>
-            <label className="block text-gray-700 font-medium mb-1">
+            <label className="block text-gray-700 font-semibold mb-1">
               Descripción
             </label>
             <textarea
               value={descripcion}
               onChange={(e) => setDescripcion(e.target.value)}
-              className="w-full border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-emerald-600 border-b-black text-black"
               rows={4}
+              className="w-full border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-emerald-600 text-black"
             />
           </div>
 
-          {error && <p className="text-red-600 text-sm">{error}</p>}
+          {/* ERROR */}
+          {error && (
+            <p className="text-red-600 text-sm font-semibold">{error}</p>
+          )}
 
-          <div className="flex justify-end gap-4">
+          {/* ACTIONS */}
+          <div className="flex justify-end gap-4 pt-4">
             <button
               type="button"
               onClick={() => navigate("/admin/temas")}
-              className="px-4 py-2 rounded-lg border"
+              className="px-4 py-2 rounded-lg border border-gray-300 text-gray-600 hover:bg-gray-100 transition"
             >
               Cancelar
             </button>

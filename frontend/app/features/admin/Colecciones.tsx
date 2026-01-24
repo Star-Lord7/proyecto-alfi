@@ -232,33 +232,35 @@ export default function Colecciones() {
       : colecciones.filter((c) => c.temaId === Number(temaFiltro));
 
   return (
-    <div className="min-h-screen bg-gray-200 px-10 py-12">
+    <div className="min-h-screen bg-[#02734A] px-10 py-14 text-white">
       <Link
         to="/admin/temas"
-        className="bg-white px-5 py-2 rounded-lg shadow text-emerald-800 font-semibold hover:shadow-md transition"
+        className="inline-flex items-center bg-white/90 px-5 py-2 rounded-xl shadow text-[#02734A] font-semibold hover:bg-white transition mb-10"
       >
-        Volver
+        ← Volver
       </Link>
 
       {/* HEADER */}
-      <header className="mb-12 text-center">
-        <h1 className="text-3xl font-bold text-emerald-800">Colecciones</h1>
-        <p className="text-gray-600 mt-2">
+      <header className="mb-14 text-center max-w-3xl mx-auto">
+        <h1 className="text-4xl font-extrabold tracking-tight">
+          Colecciones
+        </h1>
+        <p className="text-emerald-100 mt-3 text-lg">
           Colecciones disponibles organizadas por tema
         </p>
       </header>
 
-      {/* Filtro y Bton para crear */}
-      <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-10 mt-6">
+      {/* Filtro y Botón para crear */}
+      <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-14">
         {/* FILTRO */}
         <div className="flex flex-col">
-          <div className="text-sm font-semibold text-gray-700 mb-1">
-            Filtrar por tema:
-          </div>
+          <label className="text-sm font-semibold text-emerald-100 mb-2">
+            Filtrar por tema
+          </label>
           <select
             value={temaFiltro}
             onChange={(e) => setTemaFiltro(e.target.value)}
-            className="px-4 py-2 rounded-lg border border-gray-300 bg-emerald-100 text-gray-700 shadow-sm focus:outline-none focus:ring-2 focus:ring-emerald-500"
+            className="px-4 py-2 rounded-xl bg-white text-gray-800 shadow focus:outline-none focus:ring-2 focus:ring-emerald-300"
           >
             <option value="todos">Todos los temas</option>
             {temas.map((tema) => (
@@ -269,8 +271,8 @@ export default function Colecciones() {
           </select>
         </div>
 
-        {/* BOTÓN CREAR */}
-        <div className="flex justify-center md:justify-end gap-4 mb-10 mt-6">
+        {/* BOTONES */}
+        <div className="flex flex-wrap justify-center md:justify-end gap-4">
           <button
             onClick={() => {
               setTitulo("");
@@ -278,7 +280,7 @@ export default function Colecciones() {
               setTemaId("");
               setShowCreateModal(true);
             }}
-            className="bg-emerald-700 text-white px-6 py-2 rounded-lg font-semibold shadow hover:bg-emerald-800 transition self-start md:self-auto"
+            className="bg-white text-[#02734A] px-6 py-2 rounded-xl font-semibold shadow hover:scale-105 transition"
           >
             + Crear Colección
           </button>
@@ -286,7 +288,7 @@ export default function Colecciones() {
           {/* Boton para ver las preguntas */}
           <Link
             to="/admin/quizzes"
-            className="bg-emerald-700 text-white px-6 py-2 rounded-lg font-semibold shadow hover:bg-emerald-800 transition"
+            className="bg-white/20 text-white px-6 py-2 rounded-xl font-semibold hover:bg-white/30 transition"
           >
             Revisar Preguntas
           </Link>
@@ -295,32 +297,33 @@ export default function Colecciones() {
 
       {/* LOADING */}
       {loading && (
-        <div className="flex justify-center items-center text-gray-600">
+        <div className="flex justify-center items-center text-emerald-100 text-lg">
           Cargando colecciones...
         </div>
       )}
-
       {/* ERROR */}
       {error && !loading && (
-        <div className="max-w-xl mx-auto bg-white rounded-xl shadow-md p-6 text-center">
+        <div className="max-w-xl mx-auto bg-white/95 rounded-2xl shadow-xl p-6 text-center mb-10">
           <p className="text-red-600 font-semibold mb-2">Error</p>
-          <p className="text-gray-600">{error}</p>
+          <p className="text-gray-700">{error}</p>
         </div>
       )}
 
       {/* EMPTY STATE */}
       {!loading && !error && colecciones.length === 0 && (
-        <div className="max-w-xl mx-auto bg-white rounded-xl shadow-md p-8 text-center">
-          <h2 className="text-xl font-semibold text-emerald-700 mb-2">
+        <div className="max-w-xl mx-auto bg-white/95 rounded-2xl shadow-xl p-8 text-center">
+          <h2 className="text-2xl font-bold text-[#02734A] mb-3">
             No hay colecciones
           </h2>
-          <p className="text-gray-600">Aún no se han creado colecciones.</p>
+          <p className="text-gray-700">
+            Aún no se han creado colecciones.
+          </p>
         </div>
       )}
 
       {mensaje && (
         <div
-          className={`mb-6 px-4 py-3 rounded-lg text-sm font-medium ${
+          className={`max-w-xl mx-auto mb-10 px-5 py-4 rounded-xl text-sm font-semibold text-center shadow-lg ${
             tipoMensaje === "success"
               ? "bg-emerald-100 text-emerald-800 border border-emerald-300"
               : "bg-red-100 text-red-800 border border-red-300"
@@ -332,23 +335,27 @@ export default function Colecciones() {
 
       {/* LIST */}
       {!loading && !error && colecciones.length > 0 && (
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {/* {colecciones.map((coleccion) => ( */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
+          {/* {colecciones.map((coleccion) => ( */ }
           {coleccionesFiltradas.map((coleccion) => (
             <div
               key={coleccion.id}
-              className="bg-white rounded-xl shadow-md p-6 hover:shadow-lg transition"
+              className="bg-white/95 rounded-2xl shadow-lg p-6 hover:shadow-2xl hover:-translate-y-1 transition"
             >
-              <h2 className="text-xl font-semibold text-emerald-700 mb-2">
+              <h2 className="text-xl font-bold text-[#02734A] mb-2">
                 {coleccion.titulo}
               </h2>
-              <p className="text-gray-600 mb-4">{coleccion.descripcion}</p>
 
-              <div className="mt-4 space-y-3">
-                <span className="inline-block bg-emerald-100 text-emerald-700 text-sm px-3 py-1 rounded-full font-semibold">
+              <p className="text-gray-700 mb-5">
+                {coleccion.descripcion}
+              </p>
+
+              <div className="space-y-3">
+                <span className="inline-block bg-emerald-100 text-[#02734A] text-sm px-4 py-1 rounded-full font-semibold">
                   {/* Tema: {coleccion.temaId} */}
                   Tema: {getNombreTema(coleccion.temaId)}
                 </span>
+
                 <div className="flex flex-wrap gap-3">
                   <span className="text-sm bg-gray-200 text-gray-700 px-3 py-1 rounded-full">
                     {coleccion.cantidad_tarjetas} tarjetas
@@ -361,10 +368,10 @@ export default function Colecciones() {
               </div>
 
               {/* BOTONES */}
-              <div className="flex justify-end gap-3 mt-6">
+              <div className="flex flex-wrap justify-end gap-3 mt-8">
                 {/* boton para ver las preguntas aprobadas de una coleccion en especifico */}
                 <button
-                  className="bg-emerald-700 text-white px-4 py-2 rounded-lg text-sm font-semibold hover:bg-emerald-800 transition"
+                  className="bg-[#02734A] text-white px-4 py-2 rounded-xl text-sm font-semibold hover:bg-emerald-800 transition"
                   onClick={() =>
                     navigate(`/admin/colecciones/${coleccion.id}/quiz-aprobado`)
                   }
@@ -383,7 +390,7 @@ export default function Colecciones() {
                     setEstado(coleccion.estado);
                     setShowEditModal(true);
                   }}
-                  className="px-4 py-2 text-sm bg-emerald-700 text-white rounded-lg hover:bg-emerald-700 transition"
+                  className="px-4 py-2 text-sm bg-emerald-600 text-white rounded-xl hover:bg-emerald-700 transition"
                 >
                   Editar
                 </button>
@@ -394,7 +401,7 @@ export default function Colecciones() {
                     setColeccionSelec(coleccion);
                     setShowDeleteModal(true);
                   }}
-                  className="px-4 py-2 text-sm bg-red-600 text-white rounded-lg hover:bg-red-700 transition"
+                  className="px-4 py-2 text-sm bg-red-600 text-white rounded-xl hover:bg-red-700 transition"
                 >
                   Eliminar
                 </button>
@@ -406,10 +413,10 @@ export default function Colecciones() {
 
       {/* Modal reutilizable para editar y crear una nueva collection */}
       {(showCreateModal || showEditModal) && (
-        <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
-          <div className="bg-white rounded-2xl w-full max-w-lg shadow-xl p-8">
+        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50">
+          <div className="bg-white rounded-2xl w-full max-w-lg shadow-2xl p-8">
             {/* HEADER */}
-            <h2 className="text-2xl font-bold text-emerald-700 mb-6 text-center">
+            <h2 className="text-2xl font-extrabold text-[#02734A] mb-6 text-center">
               {showEditModal ? "Editar colección" : "Nueva colección"}
             </h2>
 
@@ -424,8 +431,7 @@ export default function Colecciones() {
                   type="text"
                   value={titulo}
                   onChange={(e) => setTitulo(e.target.value)}
-                  placeholder=""
-                  className="w-full border rounded-lg px-4 py-2 focus:ring-2 focus:ring-emerald-500 focus:outline-none border-b-black text-black"
+                  className="w-full border rounded-xl px-4 py-2 focus:ring-2 focus:ring-emerald-500 focus:outline-none border-gray-300 text-black"
                 />
               </div>
 
@@ -437,9 +443,8 @@ export default function Colecciones() {
                 <textarea
                   value={descripcion}
                   onChange={(e) => setDescripcion(e.target.value)}
-                  placeholder="Describe brevemente el contenido de esta colección"
                   rows={3}
-                  className="w-full border rounded-lg px-4 py-2 resize-none focus:ring-2 focus:ring-emerald-500 focus:outline-none border-b-black text-black"
+                  className="w-full border rounded-xl px-4 py-2 resize-none focus:ring-2 focus:ring-emerald-500 focus:outline-none border-gray-300 text-black"
                 />
               </div>
 
@@ -451,7 +456,7 @@ export default function Colecciones() {
                 <select
                   value={temaId}
                   onChange={(e) => setTemaId(Number(e.target.value))}
-                  className="w-full border rounded-lg px-4 py-2 bg-white focus:ring-2 focus:ring-emerald-500 focus:outline-none border-b-black text-black"
+                  className="w-full border rounded-xl px-4 py-2 bg-white focus:ring-2 focus:ring-emerald-500 focus:outline-none border-gray-300 text-black"
                 >
                   <option value="">Selecciona un tema</option>
                   {temas.map((tema) => (
@@ -461,6 +466,7 @@ export default function Colecciones() {
                   ))}
                 </select>
               </div>
+
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {/* CANTIDAD DE TARJETAS*/}
                 <div>
@@ -474,9 +480,10 @@ export default function Colecciones() {
                     onChange={(e) =>
                       setCantidadTarjetas(Number(e.target.value))
                     }
-                    className="w-full border rounded-lg px-4 py-2 focus:ring-2 focus:ring-emerald-500 focus:outline-none border-b-black text-black"
+                    className="w-full border rounded-xl px-4 py-2 focus:ring-2 focus:ring-emerald-500 focus:outline-none border-gray-300 text-black"
                   />
                 </div>
+
                 {/* ESTADO */}
                 <div>
                   <label className="block text-sm font-semibold text-gray-700 mb-1">
@@ -487,7 +494,7 @@ export default function Colecciones() {
                     onChange={(e) =>
                       setEstado(e.target.value as "ACTIVA" | "INACTIVA")
                     }
-                    className="w-full border rounded-lg px-4 py-2 bg-white focus:ring-2 focus:ring-emerald-500 focus:outline-none border-b-black text-black"
+                    className="w-full border rounded-xl px-4 py-2 bg-white focus:ring-2 focus:ring-emerald-500 focus:outline-none border-gray-300 text-black"
                   >
                     <option value="ACTIVA">Activa</option>
                     <option value="INACTIVA">Inactiva</option>
@@ -495,22 +502,21 @@ export default function Colecciones() {
                 </div>
               </div>
             </div>
-
             {/* ACTIONS */}
-            <div className="flex justify-end gap-3 mt-8">
+            <div className="flex justify-end gap-4 mt-10">
               <button
                 onClick={() => {
                   setShowCreateModal(false);
                   setShowEditModal(false);
                 }}
-                className="px-5 py-2 rounded-lg bg-gray-200 text-gray-700 hover:bg-gray-300 transition"
+                className="px-6 py-2.5 rounded-xl bg-gray-200 text-gray-700 font-semibold hover:bg-gray-300 transition"
               >
                 Cancelar
               </button>
 
               <button
                 onClick={showEditModal ? handleUpdate : handleCreate}
-                className="px-5 py-2 rounded-lg bg-emerald-700 text-white font-semibold hover:bg-emerald-800 transition"
+                className="px-6 py-2.5 rounded-xl bg-[#02734A] text-white font-semibold hover:bg-emerald-800 transition shadow-md"
               >
                 {showEditModal ? "Guardar cambios" : "Crear colección"}
               </button>
@@ -521,25 +527,36 @@ export default function Colecciones() {
 
       {/* Modal para eliminar */}
       {showDeleteModal && coleccionSelec && (
-        <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
-          <div className="bg-white rounded-xl p-6 w-full max-w-md shadow-lg">
-            <h2 className="text-xl font-semibold text-red-600 mb-4">
+        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50">
+          <div className="bg-white rounded-2xl p-8 w-full max-w-md shadow-2xl">
+            <h2 className="text-2xl font-bold text-red-600 mb-4 text-center">
               Eliminar colección
             </h2>
-            <p className="mb-6">
-              ¿Esta seguro que desea eliminar la colección{" "}
-              <strong>{coleccionSelec.titulo}</strong>?
+
+            <p className="mb-8 text-center text-gray-700">
+              ¿Estás seguro de que deseas eliminar la colección
+              <br />
+              <strong className="text-gray-900">
+                "{coleccionSelec.titulo}"
+              </strong>
+              ?
+              <br />
+              <span className="text-sm text-gray-500">
+                Esta acción no se puede deshacer.
+              </span>
             </p>
-            <div className="flex justify-end gap-3">
+
+            <div className="flex justify-center gap-4">
               <button
                 onClick={() => setShowDeleteModal(false)}
-                className="px-4 py-2 bg-gray-200 rounded"
+                className="px-6 py-2.5 rounded-xl bg-gray-200 text-gray-700 font-semibold hover:bg-gray-300 transition"
               >
                 Cancelar
               </button>
+
               <button
                 onClick={handleDelete}
-                className="px-4 py-2 bg-red-600 text-white rounded"
+                className="px-6 py-2.5 rounded-xl bg-red-600 text-white font-semibold hover:bg-red-700 transition shadow-md"
               >
                 Eliminar
               </button>

@@ -64,33 +64,50 @@ export default function CollectionCards() {
   }, [id]);
 
   if (loading) {
-    return <div className="p-10 text-center">Cargando...</div>;
-  }
+  return (
+    <div className="min-h-screen bg-[#02734A] flex items-center justify-center text-white text-lg">
+      Cargando...
+    </div>
+  );
+}
 
   if (error || !coleccion) {
-    return <div className="p-10 text-center text-red-600">{error}</div>;
-  }
+  return (
+    <div className="min-h-screen bg-[#02734A] flex items-center justify-center">
+      <div className="max-w-5xl w-full bg-white rounded-xl shadow-md p-16 text-center">
+        <p className="text-red-600 font-semibold mb-4 text-xl">
+          Error
+        </p>
+
+        <p className="text-gray-600 text-lg">
+          {error}
+        </p>
+      </div>
+    </div>
+  );
+}
 
   return (
-    <div className="min-h-screen bg-gray-100 px-10 py-12">
+   <div className="min-h-screen bg-[#02734A] px-10 py-12">
+
       {/* HEADER */}
       <header className="mb-10">
         <Link
           to="/admin/colecciones"
-        className="bg-white px-5 py-2 rounded-lg shadow text-emerald-800 font-semibold hover:shadow-md transition"
+className="bg-white px-5 py-2 rounded-lg shadow text-[#02734A] font-semibold hover:shadow-md transition"
         >
           ← Volver
         </Link>
 
-        <h1 className="text-3xl font-bold text-emerald-800 mt-4">
+<h1 className="text-3xl font-bold text-white mt-4">
           {coleccion.titulo}
         </h1>
 
-        <p className="text-gray-600 mt-2 max-w-2xl">
+<p className="text-emerald-100 mt-2 max-w-2xl">
           {coleccion.descripcion}
         </p>
 
-        <div className="flex gap-6 mt-4 text-sm text-gray-700">
+<div className="flex gap-6 mt-4 text-sm text-emerald-100">
           <span> Tarjetas: {tarjetas.length}</span>
           <span> Estado: {coleccion.estado}</span>
         </div>
@@ -98,7 +115,7 @@ export default function CollectionCards() {
 
       {/* EMPTY */}
       {tarjetas.length === 0 && (
-        <div className="bg-white rounded-xl p-8 shadow text-center">
+<div className="max-w-3xl mx-auto bg-white rounded-xl p-12 shadow text-center">
           <p className="text-gray-600">
             No hay tarjetas aprobadas para esta colección.
           </p>

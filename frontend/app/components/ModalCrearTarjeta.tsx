@@ -70,7 +70,7 @@ export const ModalCrearTarjeta = ({
             setTemaId(value ? Number(value) : "");
             setColeccionId("");
           }}
-          className="w-full border rounded p-2 mb-3"
+          className="w-full border rounded p-2 mb-3 text-gray-700"
         >
           <option value="">Seleccione un tema</option>
           {temas.map((t) => (
@@ -91,7 +91,7 @@ export const ModalCrearTarjeta = ({
             setColeccionId(value ? Number(value) : "");
           }}
           disabled={!temaId}
-          className="w-full border rounded p-2 mb-3 disabled:bg-gray-100"
+          className="w-full border rounded p-2 mb-3 text-gray-700"
         >
           <option value="">Seleccione colección</option>
           {colecciones.map((c) => (
@@ -108,7 +108,7 @@ export const ModalCrearTarjeta = ({
         <select
           value={segmento}
           onChange={(e) => setSegmento(e.target.value)}
-          className="w-full border rounded p-2 mb-3"
+          className="w-full border rounded p-2 mb-3 text-gray-700"
         >
           <option value="">Seleccione segmento</option>
           <option value="NIÑO">Niño</option>
@@ -123,7 +123,7 @@ export const ModalCrearTarjeta = ({
         <select
           value={dificultad}
           onChange={(e) => setDificultad(e.target.value)}
-          className="w-full border rounded p-2 mb-4"
+          className="w-full border rounded p-2 mb-4 text-gray-700"
         >
           <option value="BASICO">Básico</option>
           <option value="INTERMEDIO">Intermedio</option>

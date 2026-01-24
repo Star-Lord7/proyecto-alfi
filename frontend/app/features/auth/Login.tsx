@@ -1,4 +1,5 @@
 import { useState } from "react";
+import logo from "../../assets/logo.png.png";
 
 export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
@@ -6,20 +7,36 @@ export default function Login() {
   const [password, setPassword] = useState("");
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-white to-teal-50 flex items-center justify-center p-4">
-      <div className="w-full max-w-md">
-        {/* Logo Section */}
-        <div className="text-center mb-8">
-          <div className="inline-flex items-center gap-3 mb-4">
-            <div className="w-12 h-12 bg-gradient-to-br from-emerald-600 to-teal-600 rounded-xl flex items-center justify-center shadow-lg">
-              <span className="text-white font-bold text-xl">A</span>
-            </div>
-            <h1 className="text-3xl font-bold bg-gradient-to-r from-emerald-700 to-teal-600 bg-clip-text text-transparent">
-              ALFI
-            </h1>
-          </div>
-          <p className="text-gray-600">Bienvenido de nuevo</p>
-        </div>
+    <div className="relative min-h-screen flex items-center justify-center p-4 overflow-hidden">
+      
+      {/* BACKGROUND IMAGE */}
+      <div
+  className="absolute inset-0 bg-cover bg-center scale-140 blur-[6px]"
+  style={{
+    backgroundImage: "url('/assets/bg.png')",
+  }}
+/>
+
+      {/* OVERLAY */}
+      <div className="absolute inset-0 bg-white/60" />
+
+
+      {/* CONTENT */}
+      <div className="relative z-10 w-full max-w-2xl">    
+
+       {/* Logo Section */}
+<div className="text-center mb-8">
+  <div className="flex justify-center mb-4">
+    <img
+  src={logo}
+  alt="Logo"
+  className="h-16 w-auto"
+/>
+  </div>
+
+  <p className="text-gray-600">Bienvenido de nuevo</p>
+</div>
+
 
         {/* Login Card */}
         <div className="bg-white rounded-2xl shadow-xl p-8 border border-gray-100">
@@ -57,7 +74,8 @@ export default function Login() {
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all outline-none"
+                  className="text-gray-900 placeholder-gray-400
+ w-full pl-10 pr-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all outline-none"
                   placeholder="tu@ejemplo.com"
                 />
               </div>
@@ -92,7 +110,8 @@ export default function Login() {
                   type={showPassword ? "text" : "password"}
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="w-full pl-10 pr-12 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all outline-none"
+                  className="text-gray-900 placeholder-gray-400
+ w-full pl-10 pr-12 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all outline-none"
                   placeholder="••••••••"
                 />
                 <button

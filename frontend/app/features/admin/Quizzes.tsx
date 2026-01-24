@@ -148,14 +148,15 @@ export default function RevisarTarjetas() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-200 px-10 py-12">
+<div className="min-h-screen bg-[#02734A] px-10 py-12">
+
       {/* HEADER */}
       <header className="flex justify-between items-center mb-12">
         <div>
-          <h1 className="text-3xl font-bold text-emerald-800">
+          <h1 className="text-3xl font-bold text-white">
             Revisión de Tarjetas
           </h1>
-          <p className="text-gray-600 mt-1">
+          <p className="text-white mt-1">
             Tarjetas pendientes de validación
           </p>
         </div>
@@ -186,7 +187,7 @@ export default function RevisarTarjetas() {
             onClick={() => setEstadoFiltro("APROBADA")}
             className={`px-4 py-2 rounded-lg font-semibold ${
               estadoFiltro === "APROBADA"
-                ? "bg-emerald-600 text-white"
+                ? "bg-gray-500 text-white"
                 : "bg-white text-emerald-700"
             }`}
           >
@@ -208,7 +209,7 @@ export default function RevisarTarjetas() {
         {/* boton crear tarjeta */}
         <button
           onClick={() => setMostrarModalCrear(true)}
-          className="bg-emerald-600 text-white px-5 py-2 rounded-lg font-semibold hover:bg-emerald-700 transition"
+          className="bg-white text-emerald-700 px-5 py-2 rounded-lg font-semibold hover:bg-gray-500 hover:text-white transition"
         >
           + Crear tarjeta
         </button>
@@ -223,11 +224,17 @@ export default function RevisarTarjetas() {
 
       {/* ERROR */}
       {error && !loading && (
-        <div className="max-w-xl mx-auto bg-white rounded-xl shadow-md p-6 text-center">
-          <p className="text-red-600 font-semibold mb-2">Error</p>
-          <p className="text-gray-600">{error}</p>
-        </div>
-      )}
+  <div className="max-w-8xl mx-auto bg-white rounded-xl shadow-md p-20 text-center min-h-[450px] flex flex-col justify-center">
+    <p className="text-red-600 font-semibold mb-4 text-xl">
+      Error
+    </p>
+
+    <p className="text-gray-600 text-lg">
+      {error}
+    </p>
+  </div>
+)}
+
 
       {/* EMPTY STATE */}
       {!loading && !error && tarjetas.length === 0 && (

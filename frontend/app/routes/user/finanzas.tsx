@@ -1,5 +1,5 @@
-import Finanzas from "~/features/user/Finanzas";
+import Finanzas from "../../features/user/Finanzas";
 
-export default function Finanzas2() {
+export default function FinanzasRoute() {
   return <Finanzas />;
 }
