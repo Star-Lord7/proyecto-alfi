@@ -111,9 +111,11 @@ export const ModalCrearTarjeta = ({
           className="w-full border rounded p-2 mb-3 text-gray-700"
         >
           <option value="">Seleccione segmento</option>
-          <option value="NIÑO">Niño</option>
-          <option value="JOVEN_ADULTO">Joven adulto</option>
-          <option value="ADULTO">Adulto</option>
+          <option value="NIÑOS">Niño</option>
+          <option value="ADOLESCENTES">Adolescente</option>
+          <option value="JOVENES_ADULTO">Joven adulto</option>
+          <option value="ADULTOS">Adulto</option>
+          <option value="ADULTOS_MAYORES">Adulto mayor</option>
         </select>
 
         {/* Dificultad */}
