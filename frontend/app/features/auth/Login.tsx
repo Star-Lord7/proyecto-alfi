@@ -1,42 +1,65 @@
 import { useState } from "react";
 import logo from "../../assets/logo.png.png";
+import { useNavigate } from "react-router-dom";
+import { useLogin } from "../../hooks/useLogin";
 
 export default function Login() {
+  const navigate = useNavigate();
+  const {
+    email,
+    password,
+    setEmail,
+    setPassword,
+    loading,
+    error,
+    handleLogin,
+  } = useLogin();
+
   const [showPassword, setShowPassword] = useState(false);
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const onSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    const user = await handleLogin();
+    if (!user) return;
+
+    //redirigira segun el rol obtenido
+    switch (user.rol) {
+      case "SUPERADMIN":
+      case "ADMIN":
+        navigate("/admin");
+        break;
+      case "USUARIO":
+        navigate("/user");
+        break;
+      default:
+        navigate("/");
+    }
+  };
 
   return (
     <div className="relative min-h-screen flex items-center justify-center p-4 overflow-hidden">
-      
       {/* BACKGROUND IMAGE */}
       <div
-  className="absolute inset-0 bg-cover bg-center scale-140 blur-[6px]"
-  style={{
-    backgroundImage: "url('/assets/bg.png')",
-  }}
-/>
+        className="absolute inset-0 bg-cover bg-center scale-140 blur-[6px]"
+        style={{
+          backgroundImage: "url('/assets/bg.png')",
+        }}
+      />
 
       {/* OVERLAY */}
       <div className="absolute inset-0 bg-white/60" />
-
-
       {/* CONTENT */}
-      <div className="relative z-10 w-full max-w-2xl">    
+      <div className="relative z-10 w-full max-w-2xl">
+        {/* Logo Section */}
+        <div className="text-center mb-8">
+          <div className="flex justify-center mb-4">
+            <img src={logo} alt="Logo" className="h-16 w-auto" />
+          </div>
 
-       {/* Logo Section */}
-<div className="text-center mb-8">
-  <div className="flex justify-center mb-4">
-    <img
-  src={logo}
-  alt="Logo"
-  className="h-16 w-auto"
-/>
-  </div>
-
-  <p className="text-gray-600">Bienvenido de nuevo</p>
-</div>
-
+          <p className="text-gray-600">
+            Bienvenido de nuevo a tu plataforma de aprendizaje en finanzas!
+          </p>
+        </div>
 
         {/* Login Card */}
         <div className="bg-white rounded-2xl shadow-xl p-8 border border-gray-100">
@@ -44,7 +67,8 @@ export default function Login() {
             Iniciar Sesión
           </h2>
 
-          <div className="space-y-5">
+          <div >
+            <form onSubmit={onSubmit} className="space-y-5">
             {/* Email Input */}
             <div>
               <label
@@ -114,7 +138,7 @@ export default function Login() {
  w-full pl-10 pr-12 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all outline-none"
                   placeholder="••••••••"
                 />
-                <button
+                <button 
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
                   className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-gray-600"
@@ -159,7 +183,7 @@ export default function Login() {
             </div>
 
             {/* Remember & Forgot */}
-            <div className="flex items-center justify-between">
+            {/* <div className="flex items-center justify-between">
               <label className="flex items-center cursor-pointer">
                 <input
                   type="checkbox"
@@ -175,14 +199,16 @@ export default function Login() {
               >
                 ¿Olvidaste tu contraseña?
               </a>
-            </div>
+            </div> */}
 
+
+              {error && <p className="text-red-500">{error}</p>}
             {/* Submit Button */}
-            <button
-              className="w-full bg-emerald-700 text-white py-3 rounded-xl font-semibold shadow-lg hover:shadow-xl hover:scale-[1.02] transition-all duration-200"
-            >
-              Iniciar Sesión
+            <button disabled={loading} type="submit"
+            className="w-full bg-emerald-700 text-white py-3 rounded-xl font-semibold shadow-lg hover:shadow-xl hover:scale-[1.02] transition-all duration-200">
+              {loading ? "Ingresando..." : "Iniciar Sesión"}
             </button>
+            </form>
           </div>
 
           {/* Divider */}

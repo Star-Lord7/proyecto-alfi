@@ -2,6 +2,7 @@ import { z } from "zod";
 import { getUserByEmail } from "../services/userService.js";
 import { existCountry } from "../services/paisService.js";
 import { existSegment } from "../services/segmentoService.js";
+import { Rol } from "@prisma/client";
 
 const createUserSchema = z
   .object({
@@ -19,10 +20,10 @@ const createUserSchema = z
     confirmPassword: z.string(
       "La confirmacion de la contraseña es obligatoria",
     ),
-    rol: z
-      .string()
-      .optional()
-      .refine((val) => val === "USER" || val === "ADMIN"),
+    rol: z.nativeEnum(Rol).optional(),
+      // .string()
+      // .optional()
+      // .refine((val) => val === "USER" || val === "ADMIN"),
     perfil: z.object({
       nombre: z.string("El nombre es obligatorio"),
       apellido: z.string().optional(),
@@ -49,7 +50,7 @@ const createUserSchema = z
     if (data.password != data.confirmPassword) {
       ctx.addIssue({
         code: "custom",
-        path: ["confirmarPassword", "password"],
+        path: ["confirmPassword"],
         message: "Las contraseñas no coinciden",
       });
     }
