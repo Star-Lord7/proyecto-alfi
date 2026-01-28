@@ -61,7 +61,7 @@ export default function Temas() {
             nombre: editNombre,
             descripcion: editDescripcion,
           }),
-        }
+        },
       );
 
       if (res.ok) {
@@ -94,7 +94,6 @@ export default function Temas() {
 
   return (
     <div className="min-h-screen bg-[#02734A] px-6 lg:px-12 py-12">
-
       {/* VOLVER */}
       <Link
         to="/admin"
@@ -137,9 +136,7 @@ export default function Temas() {
 
       {/* LOADING */}
       {loading && (
-        <p className="text-center text-white opacity-80">
-          Cargando temas...
-        </p>
+        <p className="text-center text-white opacity-80">Cargando temas...</p>
       )}
 
       {/* ERROR */}
@@ -203,13 +200,13 @@ export default function Temas() {
             <input
               value={editNombre}
               onChange={(e) => setEditNombre(e.target.value)}
-              className="w-full border rounded-lg px-3 py-2 mb-4"
+              className="w-full border rounded-lg px-3 py-2 mb-4 border-black text-black"
             />
 
             <textarea
               value={editDescripcion}
               onChange={(e) => setEditDescripcion(e.target.value)}
-              className="w-full border rounded-lg px-3 py-2 mb-6"
+              className="w-full border rounded-lg px-3 py-2 mb-6 border-black text-black"
             />
 
             <div className="flex justify-end gap-3">
@@ -261,7 +258,6 @@ export default function Temas() {
           </div>
         </div>
       )}
-
     </div>
   );
 }

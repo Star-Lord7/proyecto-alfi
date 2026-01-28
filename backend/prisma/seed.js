@@ -257,7 +257,7 @@ async function main() {
   ];
 
   for (const temaData of temas) {
-    // 3️⃣ Crear tema si no existe
+    // Crear tema si no existe
     let tema = await prisma.tema.findUnique({
       where: { nombre: temaData.nombre },
     });
@@ -270,7 +270,7 @@ async function main() {
       });
     }
 
-    // 4️⃣ Crear colecciones de forma idempotente
+    // Crear colecciones de forma idempotente
     for (const coleccionData of temaData.colecciones) {
       const existingColeccion = await prisma.coleccion.findFirst({
         where: { titulo: coleccionData.titulo, temaId: tema.id },
