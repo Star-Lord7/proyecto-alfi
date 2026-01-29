@@ -11,6 +11,16 @@ const existUser = async (id) => {
   return user !== null;
 };
 
+//Funcion para verificar si existe el puntaje del usuario por su id
+const existPuntajeUsuario = async (usuarioIdParse) => {
+  const puntaje = await prisma.puntajeUsuario.findFirst({
+    where: {
+      perfilId: usuarioIdParse,
+    },
+  });
+  return puntaje !== null;
+};
+
 const getUserByEmail = async (correo) => {
   const user = await prisma.usuario.findUnique({
     where: {
@@ -46,4 +56,4 @@ const verifyPassword = async (email, password) => {
   };
 };
 
-export { verifyPassword, existUser, getUserByEmail };
+export { verifyPassword, existUser, existPuntajeUsuario, getUserByEmail };

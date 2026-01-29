@@ -4,13 +4,13 @@ import { promptTexto } from "../services/geminiAI.js";
 import { cardPromptTemplate } from "../utils/promptTemplate.js";
 
 // Método para obtener tarjetas por ID de colección
-const getCardsByCollectionId = async (coleccionId, limit = 3) => {
+const getCardsByCollectionId = async (coleccionId, limit = 5) => {
   try {
     const coleccionIdParse = parseInt(coleccionId, 10);
     const cards = await prisma.tarjeta.findMany({
       where: {
         coleccionId: coleccionIdParse,
-        estado: "APROBADA",
+        estado: "PENDIENTE_REVISION",
       },
       take: limit, // Limitar el número de tarjetas devueltas
       include: {
@@ -35,6 +35,43 @@ const getCardsForReview = async (estado) => {
       },
     });
     return cards;
+  } catch (error) {
+    throw new Error("Error en cardModel: " + error.message);
+  }
+};
+
+const getCardsByCollectionIdForUser = async (
+  coleccionId,
+  segmentoId,
+  limit = 3,
+) => {
+  try {
+    const coleccionIdParse = parseInt(coleccionId, 10);
+    const cards = await prisma.tarjeta.findMany({
+      select: {
+        id: true,
+        pregunta: true,
+        dificultad: true,
+        opciones: {
+          select: {
+            id: true,
+            descripcion: true,
+            feedback: true,
+            es_correcta: true,
+            puntos: true,
+            tarjetaId: true,
+          },
+        },
+      },
+      where: {
+        coleccionId: coleccionIdParse,
+        segmentoId: segmentoId,
+        estado: "APROBADA",
+      },
+      take: limit, // Limitar el número de tarjetas devueltas
+    });
+    // Mezclar las tarjetas antes de devolverlas
+    return cards.sort(() => Math.random() - 0.5);
   } catch (error) {
     throw new Error("Error en cardModel: " + error.message);
   }
@@ -126,6 +163,7 @@ const deleteCard = async (id) => {
 export {
   getCardsByCollectionId,
   getCardsForReview,
+  getCardsByCollectionIdForUser,
   createCard,
   updateCard,
   deleteCard,
