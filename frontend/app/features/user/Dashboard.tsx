@@ -1,6 +1,20 @@
 import { Link } from "react-router";
+import { useState } from "react";
+import { useNavigate } from "react-router";
+import ModalSeleccionQuiz from "../../components/ModalSeleccionQuiz";
 
 export default function Dashboard() {
+
+  const navigate = useNavigate();
+  const [modalOpen, setModalOpen] = useState(false);
+
+  const handleStartQuiz = (puntajeUsuarioId: number, preguntas: any[]) => {
+    // Navegar a la página del quiz pasando los datos
+    navigate("/user/quiz", {
+      state: { puntajeUsuarioId, preguntas },
+    });
+  };
+
   return (
     <div className="min-h-screen bg-white px-10 py-12">
       {/* HEADER */}
@@ -71,12 +85,12 @@ export default function Dashboard() {
           </h2>
 
           <div className="flex flex-col gap-4">
-            <Link
-              to="/user/finanzas"
+            <button
+              onClick={() => setModalOpen(true)}
               className="bg-white text-[#02734A] text-center py-3 rounded-xl font-semibold hover:bg-white/90 transition"
             >
-              Continuar quiz
-            </Link>
+              Empezar nuevo quiz
+            </button>
 
             <button className="border border-white text-white py-3 rounded-xl font-semibold hover:bg-white/10 transition">
               Ver resultados
@@ -88,6 +102,13 @@ export default function Dashboard() {
           </div>
         </div>
       </section>
+
+      {/* MODAL SELECCIÓN QUIZ */}
+      <ModalSeleccionQuiz
+        isOpen={modalOpen}
+        onClose={() => setModalOpen(false)}
+        onStart={handleStartQuiz}
+      />
     </div>
   );
 }

@@ -11,7 +11,8 @@ export default [
   route("admin/colecciones/:id/quiz-aprobado","routes/admin/quizAprobado.tsx"),
   // USER
   route("user", "routes/user/index.tsx"),
-  route("user/finanzas", "routes/user/finanzas.tsx"),
+  route("user/quiz", "routes/user/quiz.tsx"),
+   route("user/resultados", "routes/user/quizResult.tsx"),
   // AUTH
   route("login", "routes/auth/login.tsx"),
   route("registro", "routes/auth/register.tsx"),

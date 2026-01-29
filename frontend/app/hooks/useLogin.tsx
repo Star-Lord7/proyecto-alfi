@@ -1,5 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
+import { useAuth } from "./useAuth"; 
 
 export type Rol = "SUPERADMIN" | "ADMIN" | "USUARIO";
 
@@ -10,10 +11,10 @@ interface User {
 }
 
 export const useLogin = () => {
+  const { login } = useAuth(); // USAR CONTEXT PARA PODER GUARDAR TOKEN Y USER ID
+  
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
-  const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -29,13 +30,10 @@ export const useLogin = () => {
 
       const { token, user } = res.data;
 
-      // Guardar sesión
-      localStorage.setItem("token", token);
-      localStorage.setItem("user", JSON.stringify(user));
+      // Guardar en context
+      login(token, user);
 
-      setUser(user);
-
-      return user; // devolvemos el user completo
+      return user;
     } catch (err: any) {
       if (err.response?.status === 401) {
         setError("Credenciales inválidas");
@@ -53,7 +51,6 @@ export const useLogin = () => {
     password,
     setEmail,
     setPassword,
-    user,
     loading,
     error,
     handleLogin,
