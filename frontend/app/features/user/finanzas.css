@@ -1,0 +1,227 @@
+/* LAYOUT GENERAL */
+.finanzas-container {
+  min-height: 100vh;
+  background: #02734A;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  font-family: inherit;
+}
+
+.card-wrapper {
+  perspective: 1200px;
+}
+.card {
+  width: 760px;
+  max-width: 95vw;
+  min-height: 560px;
+  background: #ffffff;
+  border-radius: 20px;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.8s ease;
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25);
+}
+
+.card.flipped {
+  transform: rotateY(180deg);
+}
+
+.card-face {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.card-front {
+  background: #ffffff;
+}
+
+.card-back {
+  background: #ffffff;
+  transform: rotateY(180deg);
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+}
+
+/* FRONT LAYOUT*/
+.card-layout {
+  display: flex;
+  height: 100%;
+}
+
+/* Imagen */
+.card-image-container {
+  width: 40%;
+  background: #f3f4f6;
+}
+
+.card-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Contenido */
+.card-content {
+  width: 60%;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+}
+
+/* PROGRESS*/
+.progress {
+  position: relative;
+  height: 6px;
+  background: #e5e7eb;
+  border-radius: 4px;
+  margin-bottom: 24px;
+}
+
+.progress-bar {
+  height: 100%;
+  background: #02734A;
+  border-radius: 4px;
+}
+
+.progress-text {
+  position: absolute;
+  right: 0;
+  top: -22px;
+  font-size: 13px;
+  color: #6b7280;
+}
+
+/* TEXT*/
+.categoria {
+  font-size: 14px;
+  color: #6b7280;
+  margin-bottom: 6px;
+}
+
+h2 {
+  font-size: 22px;
+  margin-bottom: 24px;
+  color: #02734A;
+  line-height: 1.3;
+}
+
+/* OPCIONES FRONT */
+.opciones {
+  display: flex;
+  flex-direction: column;
+}
+
+.opcion {
+  width: 100%;
+  padding: 14px 16px;
+  margin-top: 12px;
+  border-radius: 12px;
+  border: 1px solid #d1d5db;
+  background: #ffffff;
+  cursor: pointer;
+  text-align: left;
+  font-size: 15px;
+  color: #374151;
+  transition: all 0.2s ease;
+}
+
+.opcion:hover {
+  border-color: #02734A;
+  background: #f9fafb;
+}
+
+.opcion.selected {
+  background: #ecfdf5;
+  border-color: #02734A;
+}
+
+/* ACTIONS*/
+.acciones {
+  display: flex;
+  justify-content: center;
+  margin-top: auto;
+}
+
+/* Botón principal */
+.primary {
+  min-width: 180px;
+  background: #02734A;
+  color: white;
+  padding: 12px 32px;
+  border-radius: 14px;
+  border: none;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.primary:hover {
+  background: #025c3c;
+}
+
+.primary:disabled {
+  background: #9ca3af;
+  cursor: not-allowed;
+}
+
+/* BACK CONTENT*/
+.card-back h3 {
+  text-align: center;
+  font-size: 24px;
+  margin-bottom: 1rem;
+}
+
+.correcta {
+  color: #15803d;
+}
+
+.incorrecta {
+  color: #b91c1c;
+}
+
+/* OPCIONES FEEDBACK*/
+.opciones-feedback {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-top: 1rem;
+  flex-grow: 1;
+  overflow-y: auto;
+  padding-right: 6px;
+}
+
+.opcion-feedback {
+  padding: 14px 16px;
+  border-radius: 12px;
+  background: #f9fafb;
+  border: 1px solid #e5e7eb;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  opacity: 0.7;
+  transition: all 0.2s ease;
+}
+
+/* Opcion Correcta o incorrecta */
+.opcion-feedback.correcta {
+  border-left: 6px solid #22c55e;
+}
+
+.opcion-feedback.incorrecta {
+  border-left: 6px solid #ef4444;
+}
+
+/* Opcion Seleccionada */
+.opcion-feedback.seleccionada {
+  opacity: 1;
+  background: #ffffff;
+  border: 2px solid #2563eb;
+  box-shadow: 0 8px 20px rgba(37, 99, 235, 0.25);
+}
