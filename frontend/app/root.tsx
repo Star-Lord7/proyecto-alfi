@@ -1,3 +1,4 @@
+import { AuthProvider } from "./contexts/AuthContext";
 import {
   isRouteErrorResponse,
   Links,
@@ -38,11 +39,12 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Links />
       </head>
       <body>
-        {children}
+        <AuthProvider>
+          {children}
 
-        {/* Footer SOLO en la página principal */}
-        {isHome && <Footer />}
-
+          {/* Footer SOLO en la página principal */}
+          {isHome && <Footer />}
+        </AuthProvider>
         <ScrollRestoration />
         <Scripts />
       </body>

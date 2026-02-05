@@ -22,7 +22,13 @@ const tiposPregunta = [
   "Identificación de Mito", // Cuál de estas creencias sobre el tema es falsa
 ];
 
-const tipoSeleccionado = tiposPregunta[Math.floor(Math.random() * tiposPregunta.length)];
+//funcion para que se ejecute cada vez que se llama al promt y se evite que se utilice el mismo
+//tipo de pregunta en todas las tarjetas generadas
+function obtenerTipoPregunta() {
+  return tiposPregunta[Math.floor(Math.random() * tiposPregunta.length)];
+}
+
+const tipoSeleccionado = obtenerTipoPregunta(); 
 
 // Plantilla de prompt para generar tarjetas
 // Extraemos el nombre de la colección usando su ID

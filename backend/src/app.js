@@ -6,6 +6,7 @@ import themeRouter from "./routes/themeRoutes.js";
 import collectionRouter from "./routes/collectionRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
 import authRoutes from "./routes/authRoutes.js";
+import quizRoutes from "./routes/quizRoutes.js";
 
 const app = express();
 
@@ -21,5 +22,6 @@ app.use("/api-alfi/tarjetas", cardRoutes);
 app.use("/api-alfi/temas", themeRouter);
 app.use("/api-alfi/colecciones", collectionRouter);
 app.use("/api-alfi/usuarios", userRoutes);
+app.use("/api-alfi/game", quizRoutes);
 
 export default app;

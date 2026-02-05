@@ -1,24 +1,22 @@
-/* ===== Layout ===== */
+/* LAYOUT GENERAL */
 .finanzas-container {
-  font-family: inherit;
   min-height: 100vh;
-  background: #02734A; 
+  background: #02734A;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 24px;
+  font-family: inherit;
 }
 
-
-/* ===== Card ===== */
 .card-wrapper {
   perspective: 1200px;
 }
-
 .card {
-  width: 700px;
-  max-width: 94vw;
-  background: white;
+  width: 760px;
+  max-width: 95vw;
+  min-height: 560px;
+  background: #ffffff;
   border-radius: 20px;
   position: relative;
   transform-style: preserve-3d;
@@ -31,34 +29,58 @@
 }
 
 .card-face {
-  padding: 40px;
+  position: absolute;
+  inset: 0;
   backface-visibility: hidden;
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.card-front {
+  background: #ffffff;
 }
 
 .card-back {
-  position: absolute;
-  inset: 0;
+  background: #ffffff;
   transform: rotateY(180deg);
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
 }
 
-/* Oculta el contenido tras la tarjeta al voltear */
-.card:not(.flipped) .card-back {
-  visibility: hidden;
-  pointer-events: none;
+/* FRONT LAYOUT*/
+.card-layout {
+  display: flex;
+  height: 100%;
 }
 
-.card.flipped .card-front {
-  visibility: hidden;
-  pointer-events: none;
+/* Imagen */
+.card-image-container {
+  width: 40%;
+  background: #f3f4f6;
 }
 
-/* ===== Progress ===== */
+.card-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Contenido */
+.card-content {
+  width: 60%;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+}
+
+/* PROGRESS*/
 .progress {
   position: relative;
   height: 6px;
   background: #e5e7eb;
   border-radius: 4px;
-  margin-bottom: 32px;
+  margin-bottom: 24px;
 }
 
 .progress-bar {
@@ -75,7 +97,7 @@
   color: #6b7280;
 }
 
-/* ===== Content ===== */
+/* TEXT*/
 .categoria {
   font-size: 14px;
   color: #6b7280;
@@ -84,19 +106,24 @@
 
 h2 {
   font-size: 22px;
-  margin-bottom: 26px;
+  margin-bottom: 24px;
   color: #02734A;
   line-height: 1.3;
 }
 
-/* ===== Opciones ===== */
+/* OPCIONES FRONT */
+.opciones {
+  display: flex;
+  flex-direction: column;
+}
+
 .opcion {
   width: 100%;
   padding: 14px 16px;
   margin-top: 12px;
   border-radius: 12px;
   border: 1px solid #d1d5db;
-  background: white;
+  background: #ffffff;
   cursor: pointer;
   text-align: left;
   font-size: 15px;
@@ -114,15 +141,14 @@ h2 {
   border-color: #02734A;
 }
 
-/* ===== Actions ===== */
+/* ACTIONS*/
 .acciones {
   display: flex;
   justify-content: center;
-  gap: 20px;
-  margin-top: 36px;
+  margin-top: auto;
 }
 
-/* Primary */
+/* Botón principal */
 .primary {
   min-width: 180px;
   background: #02734A;
@@ -133,7 +159,7 @@ h2 {
   font-size: 15px;
   font-weight: 600;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: background 0.2s ease;
 }
 
 .primary:hover {
@@ -145,26 +171,11 @@ h2 {
   cursor: not-allowed;
 }
 
-/* Secondary */
-.secondary {
-  min-width: 140px;
-  background: white;
-  border: 1px solid #02734A;
-  color: #02734A;
-  padding: 12px 32px;
-  border-radius: 14px;
-  cursor: pointer;
-  font-size: 15px;
-  transition: all 0.2s ease;
-}
-
-.secondary:hover {
-  background: #ecfdf5;
-}
-
-/* ===== Back ===== */
-.resultado {
-  margin-top: 18px;
+/* BACK CONTENT*/
+.card-back h3 {
+  text-align: center;
+  font-size: 24px;
+  margin-bottom: 1rem;
 }
 
 .correcta {
@@ -173,4 +184,44 @@ h2 {
 
 .incorrecta {
   color: #b91c1c;
+}
+
+/* OPCIONES FEEDBACK*/
+.opciones-feedback {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-top: 1rem;
+  flex-grow: 1;
+  overflow-y: auto;
+  padding-right: 6px;
+}
+
+.opcion-feedback {
+  padding: 14px 16px;
+  border-radius: 12px;
+  background: #f9fafb;
+  border: 1px solid #e5e7eb;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  opacity: 0.7;
+  transition: all 0.2s ease;
+}
+
+/* Opcion Correcta o incorrecta */
+.opcion-feedback.correcta {
+  border-left: 6px solid #22c55e;
+}
+
+.opcion-feedback.incorrecta {
+  border-left: 6px solid #ef4444;
+}
+
+/* Opcion Seleccionada */
+.opcion-feedback.seleccionada {
+  opacity: 1;
+  background: #ffffff;
+  border: 2px solid #2563eb;
+  box-shadow: 0 8px 20px rgba(37, 99, 235, 0.25);
 }

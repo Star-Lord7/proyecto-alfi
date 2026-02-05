@@ -1,8 +1,5 @@
 import { useEffect, useState } from "react";
 
-// =====================
-// Tipos
-// =====================
 export interface Tema {
   id: number;
   nombre: string;
@@ -19,33 +16,22 @@ interface MensajeEstado {
   texto: string;
 }
 
-// =====================
 // Hook principal
-// =====================
 export const useGenerarTarjeta = (onClose?: () => void) => {
-  // =====================
-  // Datos base
-  // =====================
+
   const [temas, setTemas] = useState<Tema[]>([]);
   const [colecciones, setColecciones] = useState<Coleccion[]>([]);
 
-  // =====================
   // Formulario
-  // =====================
   const [temaId, setTemaId] = useState<number | "">("");
   const [coleccionId, setColeccionId] = useState<number | "">("");
   const [segmento, setSegmento] = useState<string>("");
   const [dificultad, setDificultad] = useState<string>("BASICO");
 
-  // =====================
-  // UI
-  // =====================
   const [mensaje, setMensaje] = useState<MensajeEstado | null>(null);
   const [creando, setCreando] = useState(false);
 
-  // =====================
   // Cargar temas
-  // =====================
   useEffect(() => {
     fetch("http://localhost:3000/api-alfi/temas")
       .then((res) => {
@@ -62,9 +48,7 @@ export const useGenerarTarjeta = (onClose?: () => void) => {
       });
   }, []);
 
-  // =====================
   // Cargar colecciones por tema
-  // =====================
   useEffect(() => {
     if (!temaId) {
       setColecciones([]);
@@ -87,9 +71,7 @@ export const useGenerarTarjeta = (onClose?: () => void) => {
       });
   }, [temaId]);
 
-  // =====================
   // Crear tarjeta
-  // =====================
   const handleCrearTarjeta = async () => {
     if (!segmento || !coleccionId || !dificultad) {
       setMensaje({
