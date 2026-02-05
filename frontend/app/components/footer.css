@@ -1,0 +1,152 @@
+.footer {
+  background-color: #d1d1d1;
+  padding-top: 40px;
+}
+
+/* GRID PRINCIPAL */
+.footer-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px 40px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 2fr;
+  gap: 40px;
+  align-items: start;
+}
+
+/* COLUMNAS */
+.footer-col h4 {
+  font-size: 16px;
+  font-weight: 700;
+  margin-bottom: 12px;
+  color: #000;
+}
+
+.footer-col .mt {
+  margin-top: 20px;
+}
+
+/* LINKS */
+.footer-link {
+  display: block;
+  color: #000;
+  text-decoration: none;
+  margin-bottom: 6px;
+  font-size: 14px;
+}
+
+.footer-link:hover {
+  text-decoration: underline;
+}
+
+/* FORM + IMAGEN (MISMA COLUMNA) */
+.footer-form-image {
+  display: flex;
+  gap: 32px;
+  align-items: flex-start;
+}
+
+/* FORM */
+.footer-form {
+  flex: 1.4;
+}
+
+.footer-form form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.footer-input,
+.footer-textarea {
+  background-color: #fff;
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid #bebebe;
+  color: #000;
+  font-size: 14px;
+  outline: none;
+  width: 100%;
+}
+
+.footer-textarea {
+  resize: none;
+  min-height: 110px;
+}
+
+.footer-input:focus,
+.footer-textarea:focus {
+  border-color: #02734A;
+}
+
+/* BOTÓN */
+.footer-btn {
+  background-color: #02734A;
+  color: #ffffff;
+  font-weight: 600;
+  padding: 12px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.footer-btn:hover {
+  background-color: #025c3d;
+}
+
+/* ALERTA */
+.footer-alert {
+  margin-top: 12px;
+  background-color: #e6f4ef;
+  color: #02734A;
+  padding: 10px;
+  border-radius: 8px;
+  font-size: 14px;
+  text-align: center;
+}
+
+/* IMAGEN */
+
+.footer-image {
+  grid-column: 4;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  margin-left: 5px;
+}
+
+
+
+.footer-image img {
+  width: 250px;
+  max-width: 100%;
+  height: auto;
+}
+
+/* FOOTER BOTTOM */
+.footer-bottom {
+  text-align: center;
+  font-size: 13px;
+  color: #000;
+  padding: 16px 10px;
+  border-top: 1px solid #bdbdbd;
+}
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+  .footer-container {
+    grid-template-columns: 1fr;
+  }
+
+  .footer-form-image {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .footer-image img {
+    width: 180px;
+  }
+}
+

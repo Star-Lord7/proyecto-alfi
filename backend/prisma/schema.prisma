@@ -1,0 +1,225 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  // output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+enum EstadoTarjeta {
+  PENDIENTE_REVISION
+  APROBADA
+  RECHAZADA
+}
+
+enum NivelDificultad {
+  BASICO
+  INTERMEDIO
+  AVANZADO
+}
+
+model Tarjeta {
+  id         Int             @id @default(autoincrement())
+  pregunta   String
+  imagen     String?
+  dificultad NivelDificultad
+  estado     EstadoTarjeta
+
+  coleccionId Int
+  coleccion   Coleccion @relation(fields: [coleccionId], references: [id])
+
+  opciones   OpcionRespuesta[]
+  respuestas RespuestaUsuario[]
+
+  created_at DateTime  @default(now())
+  updated_at DateTime  @updatedAt
+  deleted_at DateTime?
+
+  @@map("tarjetas")
+}
+
+model Coleccion {
+  id                Int     @id @default(autoincrement())
+  titulo            String
+  descripcion       String?
+  cantidad_tarjetas Int
+  estado            Boolean @default(true)
+
+  temaId Int
+  tema   Tema @relation(fields: [temaId], references: [id])
+
+  tarjetas Tarjeta[]
+  puntajes PuntajeUsuario[]
+
+  created_at DateTime  @default(now())
+  updated_at DateTime  @updatedAt
+  deleted_at DateTime?
+
+  @@map("colecciones")
+}
+
+model Tema {
+  id          Int     @id @default(autoincrement())
+  nombre      String  @unique
+  descripcion String?
+  estado      Boolean @default(true)
+
+  colecciones Coleccion[]
+
+  created_at DateTime  @default(now())
+  updated_at DateTime  @updatedAt
+  deleted_at DateTime?
+
+  @@map("temas")
+}
+
+model OpcionRespuesta {
+  id          Int     @id @default(autoincrement())
+  descripcion String
+  feedback    String?
+  es_correcta Boolean
+  puntos      Int
+
+  tarjetaId Int
+  tarjeta   Tarjeta @relation(fields: [tarjetaId], references: [id])
+
+  opcionesUsuario RespuestaUsuario[]
+
+  created_at DateTime  @default(now())
+  updated_at DateTime  @updatedAt
+  deleted_at DateTime?
+
+  @@map("opciones_respuesta")
+}
+
+model RespuestaUsuario {
+  id Int @id @default(autoincrement())
+
+  tarjetaId Int
+  opcionId  Int
+  puntajeId Int
+
+  tiempoRespuesta Int
+  esCorrecta      Boolean
+
+  tarjeta Tarjeta         @relation(fields: [tarjetaId], references: [id])
+  opcion  OpcionRespuesta @relation(fields: [opcionId], references: [id])
+  puntaje PuntajeUsuario  @relation(fields: [puntajeId], references: [id])
+
+  created_at DateTime  @default(now())
+  updated_at DateTime  @updatedAt
+  deleted_at DateTime?
+
+  @@map("respuestas_usuario")
+}
+
+model PuntajeUsuario {
+  id          Int @id @default(autoincrement())
+  perfilId    Int
+  coleccionId Int
+
+  respuestas   RespuestaUsuario[]
+  puntajeFinal Int
+
+  created_at DateTime  @default(now())
+  updated_at DateTime  @updatedAt
+  deleted_at DateTime?
+
+  perfil    Perfil    @relation(fields: [perfilId], references: [id])
+  coleccion Coleccion @relation(fields: [coleccionId], references: [id])
+
+  @@map("puntajes_usuario")
+}
+
+model Perfil {
+  id       Int     @id @default(autoincrement())
+  nombre   String
+  apellido String
+  edad     Int?
+  telefono String?
+  estado   Boolean @default(true)
+
+  puntajeUsuarios PuntajeUsuario[]
+
+  usuarioId  Int
+  paisId     Int
+  segmentoId Int
+
+  usuario  Usuario  @relation(fields: [usuarioId], references: [id])
+  pais     Pais     @relation(fields: [paisId], references: [id])
+  segmento Segmento @relation(fields: [segmentoId], references: [id])
+
+  created_at DateTime  @default(now())
+  updated_at DateTime  @updatedAt
+  deleted_at DateTime?
+
+  @@map("perfiles")
+}
+
+enum Rol {
+  SUPERADMIN
+  ADMIN
+  USUARIO
+}
+
+model Usuario {
+  id       Int     @id @default(autoincrement())
+  email    String  @unique
+  password String
+  rol      Rol     @default(USUARIO) // Opcional, para admin o usuario normal
+  estado   Boolean @default(true) // Usuario activo/inactivo
+
+  perfiles Perfil[]
+  tokens   Token[]
+
+  created_at DateTime  @default(now())
+  updated_at DateTime  @updatedAt
+  deleted_at DateTime?
+
+  @@map("usuarios")
+}
+
+model Token {
+  id        Int    @id @default(autoincrement())
+  token     String @unique
+  usuarioId Int
+
+  usuario Usuario @relation(fields: [usuarioId], references: [id])
+
+  created_at DateTime @default(now())
+}
+
+model Segmento {
+  id          Int     @id @default(autoincrement())
+  nombre      String  @unique
+  descripcion String?
+  estado      Boolean @default(true)
+
+  created_at DateTime  @default(now())
+  updated_at DateTime  @updatedAt
+  deleted_at DateTime?
+  perfiles   Perfil[]
+
+  @@map("segmentos")
+}
+
+model Pais {
+  id     Int     @id @default(autoincrement())
+  nombre String  @unique
+  estado Boolean @default(true)
+
+  created_at DateTime  @default(now())
+  updated_at DateTime  @updatedAt
+  deleted_at DateTime?
+  perfiles   Perfil[]
+
+  @@map("paises")
+}
