@@ -14,6 +14,7 @@ import creditoIcon from "../../assets/creditoIcon.png"
 import playIcon from "../../assets/ver.png"
 import resultsIcon from "../../assets/lista.png"
 import settingsIcon from "../../assets/ajustes.png"
+import quizIcon from "../../assets/quiz.png"
 
 export default function Dashboard() {
   const navigate = useNavigate()
@@ -136,79 +137,121 @@ export default function Dashboard() {
       </section>
 
       {/* CONTENT */}
-      <section className="grid grid-cols-1 md:grid-cols-3 gap-8">
+<section className="grid grid-cols-1 md:grid-cols-3 gap-8">
 
-        {/* PROGRESO */}
-        <div className="md:col-span-2">
-          <h3 className="text-xl font-bold text-[#1f6f4a] mb-4">
-            Progreso de aprendizaje
-          </h3>
+  {/* PROGRESO */}
+  <div className="md:col-span-2">
+    <h3 className="text-xl font-bold text-[#1f6f4a] mb-4">
+      Progreso de aprendizaje
+    </h3>
 
-          {[
-            { label: "Finanzas personales", value: 80, icon: finanzasIcon },
-            { label: "Inversiones", value: 55, icon: inversionesIcon },
-            { label: "Crédito y deuda", value: 65, icon: creditoIcon },
-          ].map((item, i) => (
-            <div
-              key={i}
-              className="bg-white rounded-2xl p-4 mb-4 shadow"
-            >
-              <div className="flex justify-between mb-2">
-                <div className="flex items-center gap-3">
-                  <img src={item.icon} className="w-6 h-6" />
-                  <span className="font-semibold text-[#1f6f4a]">
-                    {item.label}
-                  </span>
-                </div>
-                <span className="font-bold text-[#1f6f4a]">
-                  {item.value}%
-                </span>
-              </div>
-
-              <div className="h-2 bg-gray-100 rounded-full">
-                <div
-                  className="h-2 bg-[#02734A]"
-                  style={{ width: `${item.value}%` }}
-                />
-              </div>
-            </div>
-          ))}
-        </div>
-
-        {/* ACCIONES */}
-        <div>
-          <h3 className="text-xl font-bold text-[#1f6f4a] mb-4">
-            Acciones rápidas
-          </h3>
-
-          <div className="flex flex-col gap-4">
-            <button
-              onClick={() => setModalOpen(true)}
-              className="bg-white text-[#02734A] py-3 rounded-xl font-semibold shadow"
-            >
-              Empezar nuevo quiz
-            </button>
-
-            <Link
-              to="/quiz"
-              className="flex items-center justify-center gap-2 bg-orange-500 text-white font-bold py-3 rounded-xl"
-            >
-              <img src={playIcon} className="w-8 h-8" />
-              Seguir aprendiendo
-            </Link>
-
-            <button className="flex items-center justify-center gap-2 border rounded-xl py-3 font-semibold text-[#1f6f4a]">
-              <img src={resultsIcon} className="w-8 h-8" />
-              Ver resultados
-            </button>
-
-            <button className="flex items-center justify-center gap-2 border rounded-xl py-3 text-gray-500">
-              <img src={settingsIcon} className="w-8 h-8" />
-              Configuración
-            </button>
+    {[
+      { label: "Finanzas personales", value: 80, icon: finanzasIcon },
+      { label: "Inversiones", value: 55, icon: inversionesIcon },
+      { label: "Crédito y deuda", value: 65, icon: creditoIcon },
+    ].map((item, i) => (
+      <div
+        key={i}
+        className="bg-white rounded-2xl p-4 mb-4 shadow"
+      >
+        <div className="flex justify-between mb-2">
+          <div className="flex items-center gap-3">
+            <img src={item.icon} className="w-6 h-6" />
+            <span className="font-semibold text-[#1f6f4a]">
+              {item.label}
+            </span>
           </div>
+          <span className="font-bold text-[#1f6f4a]">
+            {item.value}%
+          </span>
         </div>
-      </section>
+
+        <div className="h-2 bg-gray-100 rounded-full">
+          <div
+            className="h-2 bg-[#02734A]"
+            style={{ width: `${item.value}%` }}
+          />
+        </div>
+      </div>
+    ))}
+  </div>
+
+ {/* ACCIONES */}
+<div>
+  <h3 className="text-xl font-bold text-[#1f6f4a] mb-3">
+    Acciones rápidas
+  </h3>
+
+  <div className="flex flex-col gap-3">
+
+    {/* Empezar nuevo quiz */}
+    <button
+      onClick={() => setModalOpen(true)}
+      className="w-full h-14 flex items-center justify-center
+                 bg-white text-[#02734A]
+                 rounded-2xl font-semibold text-base
+                 border border-[#02734A]/40
+                 shadow-sm transition
+                 hover:bg-orange-500 hover:text-white"
+    >
+      <div className="flex items-center gap-3">
+        <img src={quizIcon} alt="quiz" className="w-7 h-7" />
+        <span>Empezar nuevo quiz</span>
+      </div>
+    </button>
+
+    {/* Seguir aprendiendo */}
+    <Link
+      to="/quiz"
+      className="w-full h-14 flex items-center justify-center
+                 bg-white text-[#1f6f4a]
+                 rounded-2xl font-semibold text-base
+                 border border-[#02734A]/40
+                 shadow-sm transition
+                 hover:bg-orange-500 hover:text-white"
+    >
+      <div className="flex items-center gap-3">
+        <img src={playIcon} className="w-8 h-8" />
+        <span>Seguir aprendiendo</span>
+      </div>
+    </Link>
+
+    {/* Ver resultados */}
+    <button
+      className="w-full h-14 flex items-center justify-center
+                 bg-white text-[#1f6f4a]
+                 rounded-2xl font-semibold text-base
+                 border border-[#02734A]/40
+                 shadow-sm transition
+                 hover:bg-orange-500 hover:text-white"
+    >
+      <div className="flex items-center gap-3">
+        <img src={resultsIcon} className="w-8 h-8" />
+        <span>Ver resultados</span>
+      </div>
+    </button>
+
+    {/* Configuración */}
+    <button
+      className="w-full h-14 flex items-center justify-center
+                 bg-white text-gray-600
+                 rounded-2xl font-semibold text-base
+                 border border-[#02734A]/40
+                 shadow-sm transition
+                 hover:bg-orange-500 hover:text-white"
+    >
+      <div className="flex items-center gap-3">
+        <img src={settingsIcon} className="w-10 h-10" />
+        <span>Configuración</span>
+      </div>
+    </button>
+
+  </div>
+</div>
+
+
+</section>
+
 
       {/* MODAL */}
       <ModalSeleccionQuiz
